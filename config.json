@@ -1,0 +1,10 @@
+{
+    "last_run": "2025-10-28T21:51:39.953078",
+    "version": "3.7",
+    "blocked_websites": [
+        "www.kuaishou.com",
+        "kuaishou.com"
+    ],
+    "auto_clear_on_exit": true,
+    "external_storage_enabled": false
+}
