@@ -1,38 +1,136 @@
-MIT License with Non-Commercial Amendment
+# Permissive Non-Commercial Software License v1.0 (International)
 
-Copyright (c) 2025-2026 yuanyuan5510
+## 1. Definitions
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+"Software" shall mean the computer program and associated documentation files
+(including but not limited to source code, object code, configuration files,
+and user manuals) provided under the terms of this License.
 
-1. The above copyright notice and this permission notice shall be included in
-   all copies or substantial portions of the Software.
+"Derivative Work" shall mean any work that is based upon or derived from the
+Software, whether in source or object form, including any modifications,
+translations, adaptations, compilations, or any other form in which the
+Software may be recast, transformed, or adapted.
 
-2. NON-COMMERCIAL USE RESTRICTION. The rights granted above are limited to
-   non-commercial use only. You may not use the Software, or any derivative
-   works thereof, for commercial purposes. "Commercial purposes" means any
-   use primarily intended for or directed toward commercial advantage or
-   monetary compensation, including but not limited to:
-   (a) Selling, licensing, or renting the Software as a standalone product.
-   (b) Incorporating the Software into a product or service that is sold,
-       licensed, or provided for a fee.
-   (c) Using the Software to provide any paid service, including consulting,
-       hosting, or software-as-a-service (SaaS) offerings.
-   (d) Using the Software within a for-profit organization to generate
-       revenue, unless such use is strictly internal and not directly
-       monetizing the Software itself.
+"Commercial Purpose" shall mean any use that is primarily intended for or
+directed toward commercial advantage or monetary compensation. This includes,
+without limitation:
+(a) Selling, licensing, renting, or otherwise transferring the Software or
+    any Derivative Work for a fee or other consideration;
+(b) Incorporating the Software or any Derivative Work into a product or
+    service that is sold, licensed, or provided for a fee;
+(c) Using the Software to provide any paid service, including but not
+    limited to consulting, hosting, software-as-a-service (SaaS), platform-
+    as-a-service (PaaS), or infrastructure-as-a-service (IaaS) offerings;
+(d) Using the Software within a for-profit organization in a manner that
+    directly contributes to the generation of revenue, unless such use is
+    strictly internal and does not directly monetize the Software itself;
+(e) Distributing the Software through application stores, online marketplaces,
+    or other digital distribution channels in exchange for payment.
 
-   If you wish to use the Software commercially, you must obtain explicit
-   prior written permission from the copyright holder.
+"Licensor" shall mean the copyright holder or entity named in the copyright
+notice of this Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+## 2. Grant of License
+
+Subject to the terms and conditions of this License, the Licensor hereby
+grants to any person obtaining a copy of the Software a worldwide, royalty-
+free, non-exclusive, non-sublicensable (except as expressly permitted herein)
+license to exercise the following rights for any Non-Commercial Purpose:
+
+(a) **Use**: To install, run, and use the Software without restriction;
+(b) **Reproduction**: To make copies of the Software in whole or in part;
+(c) **Modification**: To modify, adapt, and create Derivative Works of the
+    Software;
+(d) **Distribution**: To distribute copies of the Software or Derivative
+    Works, in source or object form, to any third party.
+
+## 3. Conditions and Restrictions
+
+### 3.1 Non-Commercial Use Only
+
+The rights granted in Section 2 are expressly conditioned upon the Software
+being used solely for Non-Commercial Purposes. Any use of the Software or any
+Derivative Work for a Commercial Purpose is strictly prohibited and
+constitutes a material breach of this License and an infringement of the
+Licensor's copyright. If you wish to use the Software commercially, you must
+obtain prior written permission from the Licensor and enter into a separate
+commercial license agreement.
+
+### 3.2 Preservation of Notices
+
+You must retain, in all copies of the Software (whether in source or object
+form) and in all Derivative Works, the original copyright notice, this
+License text, and the following disclaimer of warranties. You may not remove,
+obscure, or alter any attribution of authorship, copyright ownership, or
+license references contained within the Software.
+
+## 4. Disclaimer of Warranties
+
+**THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE", WITHOUT WARRANTY OF
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-
+INFRINGEMENT.**
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE LICENSOR EXPRESSLY
+DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE,
+INCLUDING WITHOUT LIMITATION:
+
+(a) **Merchantability**: The Licensor does not warrant that the Software will
+    meet your requirements, achieve any intended results, or operate without
+    interruption or error;
+(b) **Fitness for a Particular Purpose**: The Licensor does not warrant that
+    the Software is suitable for any specific purpose, and you assume all
+    risks associated with your use of the Software;
+(c) **Non-Infringement**: The Licensor does not warrant that the Software is
+    entirely free of third-party intellectual property claims, although the
+    Licensor has exercised reasonable care to ensure originality;
+(d) **Freedom from Defects**: The Licensor does not warrant that the Software
+    is free of technical defects, bugs, viruses, or security vulnerabilities.
+
+## 5. Limitation of Liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL THE
+LICENSOR BE LIABLE FOR ANY DAMAGES WHATSOEVER (INCLUDING, BUT NOT LIMITED TO,
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE, OR CONSEQUENTIAL
+DAMAGES) ARISING OUT OF OR IN CONNECTION WITH THE USE OR INABILITY TO USE THE
+SOFTWARE, UNDER ANY LEGAL THEORY, WHETHER IN CONTRACT, TORT (INCLUDING
+NEGLIGENCE), STRICT LIABILITY, OR OTHERWISE, EVEN IF THE LICENSOR HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+THIS LIMITATION INCLUDES, WITHOUT LIMITATION, DAMAGES FOR:
+(a) Loss of profits, revenue, or anticipated savings;
+(b) Business interruption or loss of business information;
+(c) Loss of or corruption of data;
+(d) Cost of procurement of substitute goods or services;
+(e) Any third-party claims.
+
+IN JURISDICTIONS THAT DO NOT ALLOW THE EXCLUSION OR LIMITATION OF LIABILITY
+FOR CERTAIN TYPES OF DAMAGES, THE LICENSOR'S LIABILITY SHALL BE LIMITED TO
+THE MAXIMUM EXTENT PERMITTED BY LAW, AND IN NO EVENT SHALL THE LICENSOR'S
+TOTAL AGGREGATE LIABILITY EXCEED ZERO (0) DOLLARS OR THE AMOUNT YOU ACTUALLY
+PAID FOR THE SOFTWARE, WHICHEVER IS GREATER.
+
+## 6. Termination
+
+This License and the rights granted hereunder shall terminate automatically
+upon any breach by you of the terms of this License. Upon termination, you
+must immediately cease all use of the Software and destroy all copies of the
+Software in your possession or control. Sections 1, 4, 5, and 7 shall survive
+any termination of this License.
+
+## 7. Miscellaneous
+
+This License constitutes the entire agreement between you and the Licensor
+concerning the subject matter hereof and supersedes all prior or
+contemporaneous oral or written communications, proposals, and
+representations. This License shall be governed by and construed in accordance
+with the laws of the People's Republic of China, without regard to its
+conflict of law principles. Any dispute arising out of or in connection with
+this License shall first be attempted to be resolved through friendly
+negotiations; if such negotiations fail, either party may submit the dispute
+to the competent court located in the jurisdiction of the Licensor's domicile.
+
+---
+
+**Copyright Holder:** yuanyuan5510
+**Effective Date:** 2025-2026
