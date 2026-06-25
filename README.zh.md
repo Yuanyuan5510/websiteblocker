@@ -1,4 +1,4 @@
-# WebsiteBlocker（网站拦截器）
+# WebsiteBlocker（网站拦截器）![ico](app_icon.ico)
 
 > 一款基于 Python + PyQt6 的网站访问限制工具，通过修改系统 hosts 文件实现对特定网站的访问控制。
 

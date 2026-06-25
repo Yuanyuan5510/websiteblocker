@@ -1,4 +1,4 @@
-# WebsiteBlocker
+# WebsiteBlocker![ico](app_icon.ico)
 
 > A Python + PyQt6 based website access restriction tool that blocks specified websites by modifying the system hosts file.
 
