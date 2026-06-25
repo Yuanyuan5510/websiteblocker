@@ -1,4 +1,4 @@
-# WebsiteBlocker![ico](app_icon.ico)
+# <img src="app_icon.ico" alt="ico" height="30em" style="vertical-align: middle;"> WebsiteBlocker
 
 > A Python + PyQt6 based website access restriction tool that blocks specified websites by modifying the system hosts file.
 
