@@ -45,12 +45,12 @@ WebsiteBlocker 是一款用于管理网站访问权限的桌面工具，适合�
 
 | 版本 | 类型 | 下载链接 |
 |------|------|----------|
-| **v4.4 beta** | 安装包 + 源码 | [从 Releases 下载](https://github.com/Yuanyuan5510/websiteblocker/releases) |
-| **v3.9** | 安装包 + 源码 | [从 Releases 下载](https://github.com/Yuanyuan5510/websiteblocker/releases) |
-| **v3.9.9** | 安装包 + 源码 | [从 Releases 下载](https://github.com/Yuanyuan5510/websiteblocker/releases) |
-| **v3.7** | 源码（分支） | [从 Releases 下载](https://github.com/Yuanyuan5510/websiteblocker/releases) |
-| **v1.0+** | 源码（分支） | [从 Releases 下载](https://github.com/Yuanyuan5510/websiteblocker/releases) |
-| **v2.9** | 源码（标签） | [从 Releases 下载](https://github.com/Yuanyuan5510/websiteblocker/releases) |
+| **v4.4 beta** | 安装包 + 源码 | [从 Releases 下载](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/v4.4-beta) |
+| **v3.9** | 安装包 + 源码 | [从 Releases 下载](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/v3.9) |
+| **v3.9.9** | 安装包 + 源码 | [从 Releases 下载](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/v3.9.9) |
+| **v3.7** | 源码（分支） | [从 Releases 下载](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/v3.7) |
+| **v2.9** | 源码（标签） | [从 Releases 下载](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/v2.9) |
+| **v1.0+** | 源码（分支） | [从 Releases 下载](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/版本) |
 
 > ℹ️ **提示**：请前往 [Releases 页面](https://github.com/Yuanyuan5510/websiteblocker/releases) 选择您需要的版本进行下载。
 

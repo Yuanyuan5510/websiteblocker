@@ -51,7 +51,7 @@ For branch‑based versions, you can also download source code archives directly
 | **v3.9.9** | Installer + Source | [Download from Releases](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/v3.9.9) |
 | **v3.7** | Source Code (branch) | [Download from Releases](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/v3.7) |
 | **v2.9** | Source Code (tag) | [Download from Releases](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/v2.9) |
-| **v1.0+** | Source Code (branch) | [Download from Releases](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/v1.9) |
+| **v1.0+** | Source Code (branch) | [Download from Releases](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/版本) |
 
 
 > ℹ️ **Note**: For the latest installer versions, always check the [Releases](https://github.com/Yuanyuan5510/websiteblocker/releases) page.
