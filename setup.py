@@ -10,7 +10,7 @@ import sys
 from cx_Freeze import setup, Executable
 
 # 基本信息
-NAME = "网站访问限制工具"
+NAME = "网站访问限制工具(32bit)"
 VERSION = "1.9"
 DESCRIPTION = "一个简单高效的网站访问限制工具"
 AUTHOR = "Administrator"
@@ -57,8 +57,8 @@ setup(
         Executable(
             script="config_manager.py",
             base=base,
-            target_name="网站限制配置管理器.exe",
-            shortcut_name="网站限制配置管理器",
+            target_name="网站限制配置管理器(32bit).exe",
+            shortcut_name="网站限制配置管理器(32bit)",
             shortcut_dir="DesktopFolder"
         )
     ]
