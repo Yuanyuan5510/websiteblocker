@@ -1,0 +1,106 @@
+{
+  "version": "3.9",
+  "general": {
+    "auto_start": false,
+    "notify_blocked": true,
+    "block_all_templates": false
+  },
+  "website_templates": {
+    "social_media": [
+      "facebook.com",
+      "twitter.com",
+      "instagram.com",
+      "linkedin.com",
+      "weibo.com",
+      "zhihu.com",
+      "douban.com",
+      "tiktok.com",
+      "youtube.com"
+    ],
+    "news": [
+      "bbc.com",
+      "cnn.com",
+      "nytimes.com",
+      "foxnews.com",
+      "cnbc.com",
+      "reuters.com",
+      "bloomberg.com",
+      "wsj.com"
+    ],
+    "entertainment": [
+      "netflix.com",
+      "hulu.com",
+      "disneyplus.com",
+      "amazonprimevideo.com",
+      "spotify.com",
+      "pandora.com",
+      "apple.com/apple-music",
+      "soundcloud.com"
+    ],
+    "video": [
+      "youtube.com",
+      "bilibili.com",
+      "iqiyi.com",
+      "youku.com",
+      "tudou.com",
+      "netflix.com",
+      "hulu.com",
+      "kuaishou.com"
+    ],
+    "game": [
+      "steamcommunity.com",
+      "origin.com",
+      "battle.net",
+      "ubisoft.com",
+      "epicgames.com",
+      "riotgames.com",
+      "blizzard.com",
+      "nintendo.com"
+    ],
+    "shopping": [
+      "amazon.com",
+      "ebay.com",
+      "alibaba.com",
+      "taobao.com",
+      "jd.com",
+      "pinduoduo.com",
+      "tmall.com",
+      "aliexpress.com"
+    ],
+    "other": [
+      "reddit.com",
+      "quora.com",
+      "stackoverflow.com",
+      "github.com",
+      "wikipedia.org",
+      "medium.com",
+      "wordpress.com",
+      "blogger.com"
+    ]
+  },
+  "schedule": {
+    "enabled": false,
+    "time_ranges": []
+  },
+  "backup": {
+    "enabled": true,
+    "interval_days": 7,
+    "max_backups": 10
+  },
+  "ui_settings": {
+    "theme": "light",
+    "window_size": [
+      800,
+      600
+    ],
+    "splitter_position": 300,
+    "show_toolbar": true
+  },
+  "logging": {
+    "level": "INFO",
+    "enabled": true,
+    "file_logging": true,
+    "console_logging": true
+  },
+  "last_run": "2025-12-13T16:04:46.174084"
+}
