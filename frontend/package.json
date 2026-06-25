@@ -1,0 +1,69 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "commonjs",
+  "main": "server.js",
+  "bin": "server.js",
+  "scripts": {
+    "dev": "vite --port 16410",
+    "build": "tsc && vite build",
+    "preview": "vite preview --port 16410",
+    "pkg-build": "pkg . -t node18-win-x64 --debug"
+  },
+  "pkg": {
+    "targets": [
+      "node18-win-x64"
+    ],
+    "outputPath": "./dist-exe",
+    "assets": [
+      "dist/**/*",
+      "node_modules/http-proxy/**/*"
+    ],
+    "name": "wang.station.websiteblocker",
+    "description": "网站访问限制浏览器",
+    "productName": "Website Blocker",
+    "companyName": "wang.station",
+    "copyright": "Copyright © 2026 wang.station",
+    "version": "4.4",
+    "license": "MIT",
+    "exclude": [
+      "browser/**/*",
+      ".git/**/*",
+      "node_modules/**/.cache/**/*",
+      "test/**/*",
+      "tests/**/*",
+      "*.md",
+      ".*"
+    ],
+    "icon": "../browser/app_icon.png",
+    "console": false,
+    "output": "websiteblocker-no-console.exe",
+    "options": {
+      "strip": true,
+      "upx": true
+    }
+  },
+  "publisherName": "wang.station",
+  "author": "wang.station",
+  "copyright": "Copyright © 2026 wang.station",
+  "supportEmail": "wang.station@hotmail.com",
+  "supportUrl": "websiteblocker-zh.wangstation.ddns-ip.net",
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "vite": "npm:rolldown-vite@7.2.5"
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@7.2.5"
+  },
+  "dependencies": {
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "axios": "^1.13.2",
+    "http-proxy": "^1.18.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-router-dom": "^7.11.0"
+  }
+}

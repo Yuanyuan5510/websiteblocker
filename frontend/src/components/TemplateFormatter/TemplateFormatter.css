@@ -1,0 +1,215 @@
+.template-formatter {
+  background: linear-gradient(135deg, var(--surface-color) 0%, var(--background-color) 100%);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  overflow: auto;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.template-formatter:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-color);
+}
+
+.template-formatter.compact {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* 复制按钮 */
+.copy-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.template-formatter:hover .copy-button {
+  opacity: 1;
+}
+
+.copy-button:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+}
+
+.copy-button:active {
+  transform: translateY(0);
+}
+
+.copy-button.copied {
+  background: var(--success-color);
+}
+
+.json-display {
+  display: flex;
+  margin: 0;
+  padding: 16px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  position: relative;
+}
+
+.line-numbers {
+  margin-right: 16px;
+  color: var(--text-muted);
+  text-align: right;
+  user-select: none;
+  counter-reset: line;
+  background: rgba(0, 0, 0, 0.02);
+  padding-right: 12px;
+  border-right: 1px solid var(--border-color);
+}
+
+.line-number {
+  counter-increment: line;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.line-number::before {
+  content: counter(line);
+  display: block;
+  padding-right: 12px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* 行悬停效果 */
+.json-content:hover + .line-numbers .line-number::before,
+.line-numbers:hover .line-number::before {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.json-content {
+  flex: 1;
+  cursor: text;
+}
+
+/* JSON语法高亮 */
+.json-bracket {
+  color: var(--secondary-color);
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.json-bracket:hover {
+  color: var(--primary-color);
+}
+
+.json-punctuation {
+  color: var(--text-muted);
+}
+
+.json-string {
+  color: var(--success-color);
+  font-weight: 500;
+}
+
+.json-number {
+  color: var(--warning-color);
+  font-weight: 600;
+}
+
+.json-boolean {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.json-null {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .template-formatter {
+    font-size: 12px;
+  }
+  
+  .json-display {
+    padding: 12px;
+  }
+  
+  .copy-button {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .template-formatter {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+  
+  .json-display {
+    padding: 8px;
+  }
+  
+  .line-numbers {
+    margin-right: 8px;
+    padding-right: 8px;
+  }
+  
+  .line-number::before {
+    padding-right: 8px;
+    font-size: 10px;
+  }
+}
+
+/* 折叠/展开按钮 */
+.collapse-toggle {
+  display: inline-block;
+  margin-right: 4px;
+  cursor: pointer;
+  color: var(--primary-color);
+  font-weight: bold;
+  transition: transform 0.2s ease;
+  user-select: none;
+}
+
+.collapse-toggle:hover {
+  color: var(--primary-hover);
+}
+
+.collapse-toggle.collapsed {
+  transform: rotate(-90deg);
+}
+
+/* 折叠内容 */
+.collapsible-content {
+  display: inline;
+}
+
+.collapsible-content.collapsed {
+  display: none;
+}
+
+/* 折叠占位符 */
+.collapse-placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+  cursor: pointer;
+  user-select: none;
+}
+
+.collapse-placeholder:hover {
+  color: var(--primary-color);
+}

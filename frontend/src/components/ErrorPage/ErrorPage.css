@@ -1,0 +1,307 @@
+/* ErrorPage.css */
+
+/* 基础样式重置 */
+.error-page {
+  margin: 0;
+  padding: 0;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+/* 主题变量 */
+:root {
+  --background-color: #f5f5f5;
+  --surface-color: #ffffff;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --border-color: #e0e0e0;
+  --primary-color: #1976d2;
+  --primary-hover: #1565c0;
+  --secondary-color: #f0f0f0;
+  --secondary-hover: #e0e0e0;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] {
+  --background-color: #121212;
+  --surface-color: #1e1e1e;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --text-muted: #808080;
+  --border-color: #333333;
+  --primary-color: #64b5f6;
+  --primary-hover: #90caf9;
+  --secondary-color: #2d2d2d;
+  --secondary-hover: #3d3d3d;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* 错误容器 */
+.error-container {
+  background-color: var(--surface-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  padding: 40px 30px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+/* 错误图标动画 */
+.error-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: bounce 2s infinite;
+}
+
+/* 不同错误码的动画效果 */
+.error-icon.400 .icon {
+  animation: rotate 3s linear infinite;
+}
+
+.error-icon.403 .icon {
+  animation: pulse 1.5s infinite;
+}
+
+.error-icon.404 .icon {
+  animation: shake 2s infinite;
+}
+
+.error-icon.500 .icon {
+  animation: flicker 2s infinite;
+}
+
+/* 图标动画 */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* 错误内容 */
+.error-content {
+  margin-bottom: 30px;
+}
+
+.error-code {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: var(--text-primary);
+}
+
+.error-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  color: var(--text-primary);
+}
+
+.error-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+.error-suggestion {
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 15px;
+  text-align: left;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.error-suggestion strong {
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.error-suggestion p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* 按钮样式 */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0 10px;
+  min-width: 120px;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-hover);
+}
+
+/* 错误操作按钮 */
+.error-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* 页脚样式 */
+.error-footer {
+  margin-top: 30px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .error-container {
+    padding: 30px 20px;
+    margin: 20px;
+  }
+  
+  .error-icon {
+    font-size: 3rem;
+  }
+  
+  .error-code {
+    font-size: 2.5rem;
+  }
+  
+  .error-title {
+    font-size: 1.3rem;
+  }
+  
+  .error-description {
+    font-size: 0.95rem;
+  }
+  
+  .btn {
+    margin: 5px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    min-width: 100px;
+  }
+  
+  .error-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .error-suggestion {
+    font-size: 0.85rem;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .error-container {
+    padding: 25px 15px;
+  }
+  
+  .error-icon {
+    font-size: 2.5rem;
+  }
+  
+  .error-code {
+    font-size: 2rem;
+  }
+  
+  .error-title {
+    font-size: 1.2rem;
+  }
+  
+  .error-description {
+    font-size: 0.9rem;
+  }
+  
+  .btn {
+    width: 100%;
+    margin: 5px 0;
+  }
+}

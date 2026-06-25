@@ -1,0 +1,25 @@
+# 字节码
+__pycache__/
+*.pyc
+*.pyo
+
+# 虚拟环境
+venv/
+env/
+4.4 all/
+dist/
+Output/
+certificates/
+dist-new-2/
+node_modules/
+build/
+dist-exe/
+
+# IDE 配置
+.vscode/
+.idea/
+
+# 日志和临时文件
+*.log
+tmp/
+*.7z

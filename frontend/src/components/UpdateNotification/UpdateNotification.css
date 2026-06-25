@@ -1,0 +1,319 @@
+/* UpdateNotification.css */
+
+/* 遮罩层 */
+.update-notification-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 通知容器 */
+.update-notification {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 500px;
+  width: 90%;
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+  position: relative;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 头部 */
+.update-notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
+}
+
+.update-notification-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.update-notification-close {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.update-notification-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+/* 内容区域 */
+.update-notification-content {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  gap: 1.5rem;
+}
+
+/* 更新图标 */
+.update-notification-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.icon-update::before {
+  content: '📣';
+  font-size: 2rem;
+}
+
+/* 信息区域 */
+.update-notification-info {
+  flex: 1;
+}
+
+.update-notification-message {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+/* 版本信息 */
+.update-notification-versions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid #4f46e5;
+}
+
+.version-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.version-label {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.version-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+.version-value.current {
+  background: #e0e7ff;
+  color: #4f46e5;
+}
+
+.version-value.latest {
+  background: #d1fae5;
+  color: #059669;
+}
+
+/* 更新描述 */
+.update-notification-description {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* 选项区域 */
+.update-notification-options {
+  padding: 0 2rem 1rem;
+}
+
+.update-notification-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #64748b;
+  transition: all 0.3s ease;
+}
+
+.update-notification-checkbox:hover {
+  color: #475569;
+}
+
+.update-notification-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #4f46e5;
+}
+
+/* 操作按钮 */
+.update-notification-actions {
+  display: flex;
+  gap: 1rem;
+  padding: 0 2rem 2rem;
+  justify-content: flex-end;
+}
+
+/* 按钮样式 */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  outline: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #4b5563;
+  border: 1px solid #e5e7eb;
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+  transform: translateY(-2px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .update-notification-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .update-notification-header {
+    padding: 1rem;
+  }
+
+  .update-notification-actions {
+    flex-direction: column;
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .update-notification-actions .btn {
+    width: 100%;
+  }
+
+  .update-notification-options {
+    padding: 0 1.5rem 1rem;
+    text-align: center;
+  }
+
+  .update-notification-checkbox {
+    justify-content: center;
+  }
+
+  .update-notification-versions {
+    text-align: left;
+  }
+}
+
+/* 深色模式支持（如果需要） */
+@media (prefers-color-scheme: dark) {
+  .update-notification {
+    background: #1e293b;
+    color: white;
+  }
+
+  .update-notification-message {
+    color: white;
+  }
+
+  .update-notification-description {
+    color: #cbd5e1;
+  }
+
+  .update-notification-checkbox {
+    color: #cbd5e1;
+  }
+
+  .update-notification-checkbox:hover {
+    color: white;
+  }
+
+  .update-notification-versions {
+    background: #334155;
+  }
+
+  .btn-secondary {
+    background: #334155;
+    color: white;
+    border-color: #475569;
+  }
+
+  .btn-secondary:hover {
+    background: #475569;
+  }
+}

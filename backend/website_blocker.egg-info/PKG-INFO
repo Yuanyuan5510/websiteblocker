@@ -1,0 +1,79 @@
+Metadata-Version: 2.4
+Name: website-blocker
+Version: 4.4.0
+Summary: Website Access Restriction Tool v4.4
+Home-page: 
+Author: Website Blocker Team
+Author-email: 
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi>=0.104.0
+Requires-Dist: uvicorn[standard]>=0.24.0
+Requires-Dist: sqlalchemy>=2.0.23
+Requires-Dist: alembic>=1.13.0
+Requires-Dist: apscheduler>=3.10.4
+Requires-Dist: dnslib>=0.9.23
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: pydantic>=2.5.0
+Requires-Dist: pydantic-settings>=2.1.0
+Requires-Dist: win32security>=0.0.1; sys_platform == "win32"
+Requires-Dist: systemd-python>=235; sys_platform == "linux"
+Requires-Dist: psutil>=5.9.6
+Requires-Dist: pywin32>=306; sys_platform == "win32"
+Requires-Dist: plyer>=2.1.0
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Website Blocker v4.4
+
+一个强大的网站访问限制工具，提供直观的Web界面和后端API，帮助用户管理和控制对特定网站的访问。
+
+## 功能特性
+
+- 网站访问控制：阻止和管理访问特定网站
+- 定时调度：支持Cron表达式的任务调度
+- Hosts文件管理：自动化Hosts文件操作
+- DNS服务器：内置DNS服务器，提供域名解析服务
+- 通知系统：跨平台通知功能（Windows、macOS、Linux）
+- 白名单功能：支持域名白名单设置
+
+## 技术栈
+
+- **前端**：React + TypeScript + Vite
+- **后端**：Python + FastAPI
+- **数据库**：SQLite3 + SQLAlchemy
+- **调度**：APScheduler
+- **通知**：plyer
+- **DNS**：dnslib
+
+## 安装和运行
+
+### 后端安装
+
+```bash
+cd backend
+pip install -r requirements.txt
+pip install -e .
+```
+
+### 启动服务
+
+```bash
+website-blocker
+```
+
+## API文档
+
+启动服务后，访问 `http://localhost:16413/docs` 查看API文档。
+
+## 许可证
+
+MIT License

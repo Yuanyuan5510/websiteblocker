@@ -1,0 +1,49 @@
+{
+  "name": "websiteblocker",
+  "version": "4.4.0",
+  "description": "网站访问限制浏览器",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "keywords": [],
+  "author": "wang.station",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "wang.station.websiteblocker",
+    "productName": "网站访问限制浏览器",
+    "copyright": "Copyright © 2026 wang.station",
+    "directories": {
+      "output": "../dist-new"
+    },
+    "win": {
+      "target": "portable",
+      "icon": "app_icon.png",
+      "verifyUpdateCodeSignature": false,
+      "signtoolOptions": {
+        "publisherName": "wang.station",
+        "signingHashAlgorithms": ["sha256"]
+      },
+      "fileAssociations": []
+    },
+    "electronDownload": {
+      "mirror": "https://npmmirror.com/mirrors/electron/"
+    },
+    "publish": {
+      "provider": "generic",
+      "url": "websiteblocker-zh.wangstation.ddns-ip.net"
+    },
+    "extraMetadata": {
+      "publisher": "wang.station",
+      "owner": "wang.station",
+      "supportEmail": "wang.station@hotmail.com",
+      "supportUrl": "websiteblocker-zh.wangstation.ddns-ip.net"
+    }
+  }
+}

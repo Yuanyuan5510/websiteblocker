@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>网站访问限制浏览器</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="browser-container">
+    <!-- 自定义标题栏 -->
+    <div class="title-bar">
+      <div class="title-bar-drag">
+        <div class="app-title">网站访问限制GUI</div>
+      </div>
+      <div class="window-controls">
+        <button id="minimize-btn" class="window-btn minimize-btn" title="最小化">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+          </svg>
+        </button>
+        <button id="maximize-btn" class="window-btn maximize-btn" title="最大化">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          </svg>
+        </button>
+        <button id="close-btn" class="window-btn close-btn" title="关闭">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- 浏览器内容区域 -->
+    <div class="browser-content">
+      <webview 
+        id="webview" 
+        class="webview" 
+        src="http://localhost:16410" 
+        useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+        plugins
+      ></webview>
+    </div>
+  </div>
+  
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "CompanyName": "wang.station",
+  "FileDescription": "网站访问限制浏览器",
+  "FileVersion": "4.4.0.0",
+  "InternalName": "websiteblocker",
+  "LegalCopyright": "Copyright © 2026 wang.station",
+  "OriginalFilename": "websiteblocker.exe",
+  "ProductName": "Website Blocker",
+  "ProductVersion": "4.4.0.0",
+  "Comments": "网站访问限制浏览器，用于管理和限制网站访问",
+  "Trademarks": "wang.station.websiteblocker",
+  "PrivateBuild": "",
+  "SpecialBuild": ""
+}
