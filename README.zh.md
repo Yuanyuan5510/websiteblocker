@@ -28,12 +28,12 @@ WebsiteBlocker 是一款用于管理网站访问权限的桌面工具，适合�
 
 | 版本 | 状态 | 特点 |
 |------|------|------|
-| **v4.4 beta** | 最新测试版 | 全新框架、API 调用、双语支持、自动清理模式（约 1.2GB） |
-| **v3.9** | 稳定版 | PyQt6 重构、网站模板管理、配置导入导出、DNS 缓存自动刷新 |
-| **v3.9.9** | 测试版 | 修复管理员权限双窗口问题、QSharedMemory 唯一实例校验 |
-| **v3.7** | 稳定版 | 功能完整的基础版本，适合轻量使用 |
-| **v1.0+** | 早期版本 | 具备核心拦截功能 |
-| **v2.9** | 历史版 | 全功能实现，兼容性优化 |
+| **[v4.4 beta](https://github.com/Yuanyuan5510/websiteblocker/tree/4.4)** | 最新测试版 | 全新框架、API 调用、双语支持、自动清理模式（约 1.2GB） |
+| **[v3.9](https://github.com/Yuanyuan5510/websiteblocker/tree/3.9)** | 稳定版 | PyQt6 重构、网站模板管理、配置导入导出、DNS 缓存自动刷新 |
+| **[v3.9.9](https://github.com/Yuanyuan5510/websiteblocker/tree/3.9)** | 测试版 | 修复管理员权限双窗口问题、QSharedMemory 唯一实例校验 |
+| **[v3.7](https://github.com/Yuanyuan5510/websiteblocker/tree/3.7)** | 稳定版 | 功能完整的基础版本，适合轻量使用 |
+| **[v2.9](https://github.com/Yuanyuan5510/websiteblocker/tree/2.0+)** | 历史版 | 全功能实现，兼容性优化 |
+| **[v1.9](https://github.com/Yuanyuan5510/websiteblocker/tree/1.0+)** | 早期版本 | 具备核心拦截功能 |
 
 > 💡 **推荐**：追求最新功能请使用 **v4.4 beta**；需要稳定体验请选择 **v3.9**；轻量使用可选 **v3.7**。
 

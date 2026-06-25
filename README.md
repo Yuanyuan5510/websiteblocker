@@ -28,12 +28,12 @@ WebsiteBlocker is a desktop utility for managing website access, ideal for perso
 
 | Version | Status | Highlights |
 |---------|--------|------------|
-| **v4.4 beta** | Latest Beta | New framework, API integration, bilingual UI, auto‑cleanup modes (~1.2GB) |
-| **v3.9** | Stable | PyQt6 refactor, site templates, config import/export, auto DNS cache flush |
-| **v3.9.9** | Beta | Fixed admin privilege dual‑window issue, QSharedMemory unique instance check |
-| **v3.7** | Stable | Fully functional baseline, lightweight and reliable |
-| **v2.9** | Legacy | Full‑featured release with improved compatibility |
-| **v1.0+** | Legacy | Early version with core blocking functionality |
+| **[v4.4 beta](https://github.com/Yuanyuan5510/websiteblocker/tree/4.4)** | Latest Beta | New framework, API integration, bilingual UI, auto‑cleanup modes (~1.2GB) |
+| **[v3.9](https://github.com/Yuanyuan5510/websiteblocker/tree/3.9)** | Stable | PyQt6 refactor, site templates, config import/export, auto DNS cache flush |
+| **[v3.9.9](https://github.com/Yuanyuan5510/websiteblocker/tree/3.9)** | Beta | Fixed admin privilege dual‑window issue, QSharedMemory unique instance check |
+| **[v3.7](https://github.com/Yuanyuan5510/websiteblocker/tree/3.7)** | Stable | Fully functional baseline, lightweight and reliable |
+| **[v2.9](https://github.com/Yuanyuan5510/websiteblocker/tree/2.0+)** | Legacy | Full‑featured release with improved compatibility |
+| **[v1.9](https://github.com/Yuanyuan5510/websiteblocker/tree/1.0+)** | Legacy | Early version with core blocking functionality |
 
 > 💡 **Recommendation**: For latest features, use **v4.4 beta**; for stability, **v3.9**; for lightweight usage, **v3.7**.
 
