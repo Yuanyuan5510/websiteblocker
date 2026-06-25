@@ -1,0 +1,19 @@
+# 字节码
+__pycache__/
+*.pyc
+*.pyo
+
+# 虚拟环境
+venv/
+env/
+
+dist/
+Output/
+
+# IDE 配置
+.vscode/
+.idea/
+
+# 日志和临时文件
+*.log
+tmp/
