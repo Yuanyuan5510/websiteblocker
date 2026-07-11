@@ -2,13 +2,20 @@
 ; Inno Setup 6 脚本
 
 [Setup]
-AppName=网站访问限制工具(32bit)
+AppId={{6f1330ab-8f4f-438e-a02a-c8453d10ff1f}}
+AppName=WebsiteBlocker
+AppVerName=WebsiteBlocker 4.4
+AppPublisher=wang.station
 AppVersion=1.9
-AppPublisher=网站访问限制工具
-AppPublisherURL=https://introduction.wangstation.ddns-ip.net
-DefaultDirName={pf}\网站访问限制工具(32bit)
-DefaultGroupName=网站访问限制工具(32bit)
-OutputBaseFilename=网站访问限制工具安装程序v1.9(32bit)
+AppPublisherURL=https://websiteblocker.wangstation.dpdns.org
+AppPublisherURL=https://websiteblocker-zh.wangstation.ddns-ip.net/
+AppSupportURL=https://websiteblocker-zh.wangstation.ddns-ip.net/
+AppUpdatesURL=https://websiteblocker-zh.wangstation.ddns-ip.net/
+DefaultDirName={pf}\WebsiteBlocker
+DefaultGroupName=WebsiteBlocker
+OutputBaseFilename=WebsiteBlockerv1.9
+OutputDir=Output
+
 Compression=lzma2
 SolidCompression=yes
 PrivilegesRequired=admin
@@ -18,7 +25,7 @@ WizardStyle=modern
 AppCopyright=© 2025 网站访问限制工具
 DisableProgramGroupPage=no
 LicenseFile=dist\frozen_application_license.txt
-OutputDir=Output
+
 ChangesAssociations=no
 CreateAppDir=yes
 AllowNoIcons=yes
