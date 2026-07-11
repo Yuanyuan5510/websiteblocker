@@ -5,6 +5,7 @@
 
 [Setup]
 ; 基本信息
+AppId={{6f1330ab-8f4f-438e-a02a-c8453d10ff1f}}
 AppName=WebsiteBlocker
 AppVerName=WebsiteBlocker 4.4
 AppVersion=4.4.0
