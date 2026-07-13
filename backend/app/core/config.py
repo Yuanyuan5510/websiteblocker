@@ -2,6 +2,21 @@ from typing import List, Optional
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
 import os
+from pathlib import Path
+
+
+def get_appdata_path() -> str:
+    """获取统一配置路径"""
+    appdata = os.environ.get('APPDATA', os.path.expanduser('~'))
+    return os.path.join(appdata, 'WebsiteBlocker')
+
+
+def get_database_path() -> str:
+    """获取数据库路径"""
+    config_dir = get_appdata_path()
+    Path(config_dir).mkdir(parents=True, exist_ok=True)
+    return os.path.join(config_dir, 'website_blocker.db')
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -23,8 +38,8 @@ class Settings(BaseSettings):
     # 前端配置
     frontend_url: str = "http://localhost:16410"
     
-    # 数据库配置
-    database_url: str = Field(default=f"sqlite:///{os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'website_blocker.db')}")
+    # 数据库配置 - 使用统一路径
+    database_url: str = Field(default_factory=lambda: f"sqlite:///{get_database_path()}")
     
     # CORS配置
     cors_origins: List[str] = Field(default_factory=lambda: [

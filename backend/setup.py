@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-网站访问限制工具后端 - 打包配置文件
+Website Blocker Backend - 打包配置文件
 用于cx_Freeze打包程序为可执行文件
 """
 
@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 # 基本信息配置
 NAME = "WebsiteBlockerBackend"
 VERSION = "4.4"
-DESCRIPTION = "网站访问限制工具后端服务"
+DESCRIPTION = "Website Blocker Backend Service"
 AUTHOR = "wang.station"
 AUTHOR_EMAIL = "wang.station@hotmail.com"
 SUPPORT_URL = "https://websiteblocker-zh.wangstation.ddns-ip.net/"

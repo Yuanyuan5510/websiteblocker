@@ -168,7 +168,7 @@ class NotificationManager:
         
         stats = self.generate_statistics_report()
         title = "每日网站访问限制报告"
-        message = f"""网站访问限制工具每日报告\n\n"\
+        message = f"""Website Blocker每日报告\n\n"\
                   f"报告时间: {stats['report_time']}\n"\
                   f"累计拦截网站数量: {stats['total_blocked_domains']}\n"\
                   f"当前激活拦截: {stats['active_blocked_domains']}\n"\
@@ -188,7 +188,7 @@ class NotificationManager:
         
         stats = self.generate_statistics_report()
         title = "每周网站访问限制报告"
-        message = f"""网站访问限制工具每周报告\n\n"\
+        message = f"""Website Blocker每周报告\n\n"\
                   f"报告时间: {stats['report_time']}\n"\
                   f"累计拦截网站数量: {stats['total_blocked_domains']}\n"\
                   f"当前激活拦截: {stats['active_blocked_domains']}\n"\
