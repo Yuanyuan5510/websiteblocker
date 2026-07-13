@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-网站访问限制工具测试脚本
-用于验证程序的各项功能是否正常工作
+Website Blocker验证程序的各项功能是否正常工作
 """
 
 import os
@@ -13,17 +12,16 @@ import json
 import shutil
 from datetime import datetime
 
-# 配置文件路径
-USER_HOME = os.path.expanduser("~")
-CONFIG_DIR = os.path.join(USER_HOME, ".website_blocker")
+# 配置文件路径 - 使用统一路径
+CONFIG_DIR = os.path.join(os.environ.get('APPDATA', os.path.expanduser('~')), 'WebsiteBlocker')
 # 获取脚本所在目录
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# 配置文件现在位于程序同目录下
-CONFIG_FILE = os.path.join(SCRIPT_DIR, "config.json")
+# 配置文件位于统一配置目录
+CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
 HOSTS_PATH = "C:\\Windows\\System32\\drivers\\etc\\hosts" if os.name == 'nt' else "/etc/hosts"
 HOSTS_BACKUP = HOSTS_PATH + ".test_backup"
 
-print("=== 网站访问限制工具测试脚本 ===")
+print("=== Website Blocker Test Script ===")
 print(f"测试时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 print("="*50)
 
@@ -85,14 +83,10 @@ def test_config_management():
     """测试配置管理功能"""
     print("\n[测试 3] 测试配置管理...")
     try:
-        # 获取脚本所在目录，即程序目录
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        
-        # 检查配置文件（现在位于程序同目录下）
-        config_file = os.path.join(script_dir, "config.json")
-        if os.path.exists(config_file):
-            print(f"✓ 配置文件存在: {config_file}")
-            with open(config_file, 'r', encoding='utf-8') as f:
+        # 使用统一配置路径
+        if os.path.exists(CONFIG_FILE):
+            print(f"✓ 配置文件存在: {CONFIG_FILE}")
+            with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
                 config = json.load(f)
                 print("✓ 配置文件格式正确")
                 print(f"  - blocked_websites: {config.get('blocked_websites', [])}")
@@ -100,7 +94,7 @@ def test_config_management():
                 print(f"  - external_storage_enabled: {config.get('external_storage_enabled', False)}")
                 return True
         else:
-            print(f"⚠️  配置文件不存在: {config_file}")
+            print(f"⚠️  配置文件不存在: {CONFIG_FILE}")
             return False
     except Exception as e:
         print(f"✗ 配置测试失败: {e}")

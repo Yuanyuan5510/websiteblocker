@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
 from datetime import datetime
 import logging
+import webbrowser
 
 # 配置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -12,18 +13,22 @@ logger = logging.getLogger('ConfigManager')
 # 设置中文字体
 tk_font = ('SimHei', 10)
 
+# 版本信息
+APP_VERSION = "1.9"
+UPDATE_URL = "https://websiteblocker.wangstation.dpdns.org/download.html"
+
 class ConfigManagerApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("网站限制配置管理器")
+        self.root.title("Website Blocker Config")
         self.root.geometry("500x400")
         self.root.resizable(True, True)
         
         # 获取用户配置目录，避免权限问题
         self.app_dir = os.path.dirname(os.path.abspath(__file__))
         
-        # 优先使用用户目录存储配置文件（避免权限问题）
-        self.user_config_dir = os.path.join(os.path.expanduser('~'), '.website_blocker')
+        # 使用统一配置路径: %APPDATA%\WebsiteBlocker
+        self.user_config_dir = os.path.join(os.environ.get('APPDATA', os.path.expanduser('~')), 'WebsiteBlocker')
         os.makedirs(self.user_config_dir, exist_ok=True)
         self.config_file = os.path.join(self.user_config_dir, "config.json")
         
@@ -57,8 +62,8 @@ class ConfigManagerApp:
         main_frame = ttk.Frame(self.root, padding="10")
         main_frame.pack(fill=tk.BOTH, expand=True)
         
-        # 标题标签
-        title_label = ttk.Label(main_frame, text="网站限制配置管理", font=('SimHei', 14, 'bold'))
+        # 标题标签 - 显示版本号
+        title_label = ttk.Label(main_frame, text=f"Website Blocker Config v{APP_VERSION}", font=('SimHei', 14, 'bold'))
         title_label.pack(pady=10)
         
         # 配置信息框架
@@ -123,11 +128,27 @@ class ConfigManagerApp:
         ttk.Button(btn_frame, text="保存配置", command=self._save_config).pack(side=tk.LEFT, padx=5)
         ttk.Button(btn_frame, text="重置为默认值", command=self._reset_to_default).pack(side=tk.LEFT, padx=5)
         ttk.Button(btn_frame, text="刷新", command=self._refresh).pack(side=tk.LEFT, padx=5)
+        ttk.Button(btn_frame, text="检查更新", command=self._check_update).pack(side=tk.LEFT, padx=5)
         
         # 状态标签
         self.status_var = tk.StringVar(value="就绪")
         status_label = ttk.Label(main_frame, textvariable=self.status_var, font=('SimHei', 9))
         status_label.pack(side=tk.LEFT, pady=5)
+    
+    def _check_update(self):
+        """检查更新"""
+        result = messagebox.askyesno(
+            "检查更新", 
+            f"当前版本: v{APP_VERSION}\n\n是否前往下载页面检查最新版本？",
+            icon='question'
+        )
+        if result:
+            try:
+                webbrowser.open(UPDATE_URL)
+                logger.info(f"已打开更新页面: {UPDATE_URL}")
+            except Exception as e:
+                logger.error(f"打开更新页面失败: {e}")
+                messagebox.showerror("错误", f"无法打开更新页面: {e}")
     
     def _load_config(self):
         """加载配置文件"""
@@ -442,7 +463,7 @@ def cli_mode(args=None):
     import argparse
     import sys
     
-    parser = argparse.ArgumentParser(description="网站限制配置管理工具")
+    parser = argparse.ArgumentParser(description="Website Blocker Config Tool")
     parser.add_argument("--add", help="添加网站到阻止列表")
     parser.add_argument("--remove", help="从阻止列表移除网站")
     parser.add_argument("--list", action="store_true", help="列出当前阻止的网站")

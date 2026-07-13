@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-网站访问限制工具 - 打包配置文件
+Website Blocker - 打包配置文件
 用于PyInstaller打包程序为可执行文件
 """
 
@@ -10,9 +10,9 @@ import sys
 from cx_Freeze import setup, Executable
 
 # 基本信息
-NAME = "网站访问限制工具(32bit)"
+NAME = "Website Blocker (32bit)"
 VERSION = "1.9"
-DESCRIPTION = "一个简单高效的网站访问限制工具"
+DESCRIPTION = "一个简单高效的website blocking tool"
 AUTHOR = "Administrator"
 
 # 获取当前目录
@@ -57,8 +57,8 @@ setup(
         Executable(
             script="config_manager.py",
             base=base,
-            target_name="网站限制配置管理器(32bit).exe",
-            shortcut_name="网站限制配置管理器(32bit)",
+            target_name="Website Blocker Config (32bit).exe",
+            shortcut_name="Website Blocker Config (32bit)",
             shortcut_dir="DesktopFolder"
         )
     ]

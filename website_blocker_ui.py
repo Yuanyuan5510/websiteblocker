@@ -9,6 +9,7 @@ import platform
 import time
 import subprocess
 import socket
+import webbrowser
 from datetime import datetime
 import atexit
 import math
@@ -21,6 +22,10 @@ logger = logging.getLogger('WebsiteBlocker')
 
 # 设置中文字体
 tk_font = ('SimHei', 10)
+
+# 版本信息
+APP_VERSION = "1.9"
+UPDATE_URL = "https://websiteblocker.wangstation.dpdns.org/download.html"
 
 class WebsiteBlockerApp:
     def __init__(self, root):
@@ -44,7 +49,7 @@ class WebsiteBlockerApp:
                 messagebox.showwarning("权限警告", "部分功能需要管理员权限才能使用，请手动以管理员身份运行程序")
         
         self.root = root
-        self.root.title("网站访问限制工具")
+        self.root.title("Website Blocker")
         self.root.geometry("600x500")
         self.root.resizable(True, True)
         
@@ -68,8 +73,8 @@ class WebsiteBlockerApp:
         # 获取用户配置目录，避免权限问题
         self.app_dir = os.path.dirname(os.path.abspath(__file__))
         
-        # 优先使用用户目录存储配置文件（避免权限问题）
-        self.user_config_dir = os.path.join(os.path.expanduser('~'), '.website_blocker')
+        # 使用统一配置路径: %APPDATA%\WebsiteBlocker
+        self.user_config_dir = os.path.join(os.environ.get('APPDATA', os.path.expanduser('~')), 'WebsiteBlocker')
         os.makedirs(self.user_config_dir, exist_ok=True)
         self.config_file = os.path.join(self.user_config_dir, "config.json")
         
@@ -311,7 +316,7 @@ class WebsiteBlockerApp:
                     f.writelines(lines)
                     if self.blocked_websites:
                         f.write(f"\n{self.BLOCK_COMMENT_START}\n")
-                        f.write(f"# 此区域由网站访问限制工具自动生成，请勿手动修改\n")
+                        f.write(f"# 此区域由Website Blocker自动生成，请勿手动修改\n")
                         f.write(f"# 阻止网站总数: {len(self.blocked_websites)}\n")
                         
                         # 对于每个域名，阻止主域名和所有子域名（包括www）
@@ -433,8 +438,8 @@ class WebsiteBlockerApp:
         main_frame = ttk.Frame(self.root, padding="10")
         main_frame.pack(fill=tk.BOTH, expand=True)
         
-        # 标题标签
-        title_label = ttk.Label(main_frame, text="网站访问限制工具", font=('SimHei', 14, 'bold'))
+        # 标题标签 - 显示版本号
+        title_label = ttk.Label(main_frame, text=f"Website Blocker v{APP_VERSION}", font=('SimHei', 14, 'bold'))
         title_label.pack(pady=10)
         
         # 当前阻止信息
@@ -492,6 +497,7 @@ class WebsiteBlockerApp:
         ttk.Button(btn_frame, text="移除选中", command=self._remove_website_ui).pack(side=tk.LEFT, padx=5)
         ttk.Button(btn_frame, text="解除所有限制", command=self._clear_all_blocks_ui).pack(side=tk.LEFT, padx=5)
         ttk.Button(btn_frame, text="恢复hosts备份", command=self._restore_hosts_ui).pack(side=tk.LEFT, padx=5)
+        ttk.Button(btn_frame, text="检查更新", command=self._check_update).pack(side=tk.LEFT, padx=5)
         
         # 底部信息
         footer_frame = ttk.Frame(main_frame)
@@ -501,6 +507,21 @@ class WebsiteBlockerApp:
         
         # 填充初始列表
         self._refresh_list()
+    
+    def _check_update(self):
+        """检查更新"""
+        result = messagebox.askyesno(
+            "检查更新", 
+            f"当前版本: v{APP_VERSION}\n\n是否前往下载页面检查最新版本？",
+            icon='question'
+        )
+        if result:
+            try:
+                webbrowser.open(UPDATE_URL)
+                logger.info(f"已打开更新页面: {UPDATE_URL}")
+            except Exception as e:
+                logger.error(f"打开更新页面失败: {e}")
+                messagebox.showerror("错误", f"无法打开更新页面: {e}")
     
     def _refresh_list(self):
         """刷新网站列表"""
