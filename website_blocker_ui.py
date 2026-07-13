@@ -87,7 +87,7 @@ class WebsiteBlockerApp(QMainWindow):
         self._is_restarting = False
         
         # 设置基本属性
-        self.setWindowTitle("网站限制工具 v3.9")
+        self.setWindowTitle("Website Blocker v3.9")
         self.setGeometry(100, 100, 900, 700)
         
         # 设置窗口图标
@@ -409,7 +409,7 @@ class WebsiteBlockerApp(QMainWindow):
         help_text = QTextEdit()
         help_text.setReadOnly(True)
         help_text.setHtml("""
-        <h2>网站限制工具使用说明</h2>
+        <h2>Website Blocker使用说明</h2>
         <h3>基本功能</h3>
         <p>1. 在左侧输入框中输入要阻止的网站，点击"添加"按钮</p>
         <p>2. 网站将被添加到阻止列表中并立即生效</p>
@@ -813,7 +813,7 @@ class WebsiteBlockerApp(QMainWindow):
     def _show_welcome_message(self):
         """显示欢迎信息"""
         welcome_text = """
-欢迎使用网站限制工具 v3.9
+Welcome to Website Blocker v3.9
 这是一个功能强大的网站阻止工具，可以帮助您控制网站访问权限。
 
 主要功能：

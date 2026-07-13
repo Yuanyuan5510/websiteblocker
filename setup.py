@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-网站访问限制工具 - 打包配置文件
+Website Blocker - 打包配置文件
 用于cx_Freeze打包程序为可执行文件
 """
 
@@ -38,7 +38,7 @@ except ImportError:
 # 基本信息配置
 NAME = "WebsiteBlocker"
 VERSION = "3.9"
-DESCRIPTION = "一个简单高效的网站访问限制工具"
+DESCRIPTION = "一个简单高效的website blocking tool"
 AUTHOR = "wang.station"
 AUTHOR_EMAIL = "wang.station@hotmail.com"
 SUPPORT_URL = "https://websiteblocker-zh.wangstation.ddns-ip.net/"
@@ -127,7 +127,7 @@ class BuildAndSignExe(build_exe):
         self.cert_thumbprint = None
         self.timestamp_url = "http://timestamp.digicert.com"  # 可靠的时间戳服务器
         self.publisher_name = "wang.station"
-        self.description = "网站访问限制工具 - 一个简单高效的网站访问限制工具"
+        self.description = "Website Blocker - 一个简单高效的website blocking tool"
         self.signtool_path = None
         self.additional_cert = None
         
@@ -412,7 +412,7 @@ class BuildAndSignExe(build_exe):
     def run(self):
         """运行构建和签名流程，确保可重复性"""
         logger.info("=" * 60)
-        logger.info("网站访问限制工具 - 构建和数字签名")
+        logger.info("Website Blocker - 构建和数字签名")
         logger.info("=" * 60)
         
         # 设置构建可重复性环境变量
@@ -559,7 +559,7 @@ setup(
             "cert_thumbprint": None,  # 证书指纹
             "timestamp_url": "http://timestamp.digicert.com",
             "publisher_name": "wang.station",
-            "description": "网站访问限制工具 - 一个简单高效的网站访问限制工具",
+            "description": "Website Blocker - 一个简单高效的website blocking tool",
             "signtool_path": None,  # 可在命令行中指定signtool.exe路径
             "additional_cert": None  # 额外证书链文件
         }
