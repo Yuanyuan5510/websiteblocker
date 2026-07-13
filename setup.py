@@ -10,7 +10,7 @@ import sys
 from cx_Freeze import setup, Executable
 
 # 基本信息
-NAME = "Website Blocker (32bit)"
+NAME = "Website Blocker"
 VERSION = "1.9"
 DESCRIPTION = "一个简单高效的website blocking tool"
 AUTHOR = "Administrator"
@@ -57,8 +57,8 @@ setup(
         Executable(
             script="config_manager.py",
             base=base,
-            target_name="Website Blocker Config (32bit).exe",
-            shortcut_name="Website Blocker Config (32bit)",
+            target_name="Website Blocker Config.exe",
+            shortcut_name="Website Blocker Config",
             shortcut_dir="DesktopFolder"
         )
     ]

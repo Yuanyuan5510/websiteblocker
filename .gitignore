@@ -18,3 +18,4 @@ Output/
 *.log
 tmp/
 *.iss
+*.pfx
