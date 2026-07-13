@@ -15,15 +15,15 @@ tk_font = ('SimHei', 10)
 class ConfigManagerApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("网站限制配置管理器")
+        self.root.title("Website Blocker Config")
         self.root.geometry("600x500")
         self.root.resizable(True, True)
         
         # 获取用户配置目录，避免权限问题
         self.app_dir = os.path.dirname(os.path.abspath(__file__))
         
-        # 优先使用用户目录存储配置文件（避免权限问题）
-        self.user_config_dir = os.path.join(os.path.expanduser('~'), '.website_blocker')
+        # 使用统一配置路径: %APPDATA%\WebsiteBlocker
+        self.user_config_dir = os.path.join(os.environ.get('APPDATA', os.path.expanduser('~')), 'WebsiteBlocker')
         os.makedirs(self.user_config_dir, exist_ok=True)
         self.config_file = os.path.join(self.user_config_dir, "config.json")
         
@@ -94,7 +94,7 @@ class ConfigManagerApp:
         main_frame.pack(fill=tk.BOTH, expand=True)
         
         # 标题标签
-        title_label = ttk.Label(main_frame, text="网站限制配置管理", font=('SimHei', 14, 'bold'))
+        title_label = ttk.Label(main_frame, text="Website Blocker Config", font=('SimHei', 14, 'bold'))
         title_label.pack(pady=10)
         
         # 配置信息框架
@@ -541,7 +541,7 @@ def cli_mode(args=None):
     import argparse
     import sys
     
-    parser = argparse.ArgumentParser(description="网站限制配置管理工具")
+    parser = argparse.ArgumentParser(description="Website Blocker Config Tool")
     parser.add_argument("--add", help="添加网站到阻止列表")
     parser.add_argument("--remove", help="从阻止列表移除网站")
     parser.add_argument("--list", action="store_true", help="列出当前阻止的网站")

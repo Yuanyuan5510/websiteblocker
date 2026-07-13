@@ -44,7 +44,7 @@ class WebsiteBlockerApp:
                 messagebox.showwarning("权限警告", "部分功能需要管理员权限才能使用，请手动以管理员身份运行程序")
         
         self.root = root
-        self.root.title("网站访问限制工具")
+        self.root.title("Website Blocker")
         self.root.geometry("600x500")
         self.root.resizable(True, True)
         
@@ -68,8 +68,8 @@ class WebsiteBlockerApp:
         # 获取用户配置目录，避免权限问题
         self.app_dir = os.path.dirname(os.path.abspath(__file__))
         
-        # 优先使用用户目录存储配置文件（避免权限问题）
-        self.user_config_dir = os.path.join(os.path.expanduser('~'), '.website_blocker')
+        # 使用统一配置路径: %APPDATA%\WebsiteBlocker
+        self.user_config_dir = os.path.join(os.environ.get('APPDATA', os.path.expanduser('~')), 'WebsiteBlocker')
         os.makedirs(self.user_config_dir, exist_ok=True)
         self.config_file = os.path.join(self.user_config_dir, "config.json")
         
@@ -311,7 +311,7 @@ class WebsiteBlockerApp:
                     f.writelines(lines)
                     if self.blocked_websites:
                         f.write(f"\n{self.BLOCK_COMMENT_START}\n")
-                        f.write(f"# 此区域由网站访问限制工具自动生成，请勿手动修改\n")
+                        f.write(f"# 此区域由Website Blocker自动生成，请勿手动修改\n")
                         f.write(f"# 阻止网站总数: {len(self.blocked_websites)}\n")
                         
                         # 对于每个域名，阻止主域名和所有子域名（包括www）

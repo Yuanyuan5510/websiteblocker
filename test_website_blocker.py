@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-网站访问限制工具测试脚本
+Website Blocker Test Script
 用于验证程序的各项功能是否正常工作
 """
 
@@ -23,7 +23,7 @@ CONFIG_FILE = os.path.join(SCRIPT_DIR, "config.json")
 HOSTS_PATH = "C:\\Windows\\System32\\drivers\\etc\\hosts" if os.name == 'nt' else "/etc/hosts"
 HOSTS_BACKUP = HOSTS_PATH + ".test_backup"
 
-print("=== 网站访问限制工具测试脚本 ===")
+print("=== Website Blocker Test Script ===")
 print(f"测试时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 print("="*50)
 
