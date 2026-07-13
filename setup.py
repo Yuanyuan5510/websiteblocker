@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-网站访问限制工具 - 打包配置文件
+Website Blocker - 打包配置文件
 用于cx_Freeze打包程序为可执行文件
 """
 
@@ -11,9 +11,9 @@ import json
 from cx_Freeze import setup, Executable
 
 # 基本信息
-NAME = "网站访问限制工具"
+NAME = "Website Blocker"
 VERSION = "2.9"
-DESCRIPTION = "一个简单高效的网站访问限制工具"
+DESCRIPTION = "一个简单高效的website blocking tool"
 AUTHOR = "Administrator"
 
 # 获取当前目录

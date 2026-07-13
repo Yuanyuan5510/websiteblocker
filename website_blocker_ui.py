@@ -32,7 +32,7 @@ def setup_logging():
     global logger  # 声明使用全局变量
     try:
         # 创建日志目录
-        log_dir = os.path.join(os.path.expanduser('~'), '.website_blocker', 'logs')
+        log_dir = os.path.join(os.environ.get('APPDATA', os.path.expanduser('~')), 'WebsiteBlocker', 'logs')
         os.makedirs(log_dir, exist_ok=True)
         
         # 配置日志
@@ -86,7 +86,7 @@ class WebsiteBlockerApp:
                 messagebox.showwarning("权限警告", "部分功能需要管理员权限才能使用，请手动以管理员身份运行程序")
         
         self.root = root
-        self.root.title("网站访问限制工具 V2.9")
+        self.root.title("Website Blocker V2.9")
         self.root.geometry("600x500")
         self.root.resizable(True, True)
         
@@ -113,8 +113,8 @@ class WebsiteBlockerApp:
         # 获取用户配置目录，避免权限问题
         self.app_dir = os.path.dirname(os.path.abspath(__file__))
         
-        # 优先使用用户目录存储配置文件（避免权限问题）
-        self.user_config_dir = os.path.join(os.path.expanduser('~'), '.website_blocker')
+        # 使用统一配置路径: %APPDATA%\WebsiteBlocker
+        self.user_config_dir = os.path.join(os.environ.get('APPDATA', os.path.expanduser('~')), 'WebsiteBlocker')
         os.makedirs(self.user_config_dir, exist_ok=True)
         self.config_file = os.path.join(self.user_config_dir, "config.json")
         
@@ -439,7 +439,7 @@ class WebsiteBlockerApp:
         
         content = []
         content.append(f"\n{self.BLOCK_COMMENT_START}\n")
-        content.append(f"# 此区域由网站访问限制工具自动生成，请勿手动修改\n")
+        content.append(f"# 此区域由Website Blocker自动生成，请勿手动修改\n")
         content.append(f"# 阻止网站总数: {len(self.blocked_websites)}\n")
         
         # 添加DNS优先级规则
@@ -1153,7 +1153,7 @@ class WebsiteBlockerApp:
             # 尝试使用备用方式保存
             try:
                 # 创建一个备用配置文件路径
-                backup_config_file = os.path.join(os.path.expanduser('~'), '.website_blocker_backup.json')
+                backup_config_file = os.path.join(os.environ.get('APPDATA', os.path.expanduser('~')), 'WebsiteBlocker', 'config_backup.json')
                 with open(backup_config_file, 'w', encoding='utf-8') as f:
                     json.dump({
                         "blocked_websites": self.blocked_websites.copy(),
@@ -1186,7 +1186,7 @@ class WebsiteBlockerApp:
         """显示版本不再支持的警告"""
         deprecation_msg = (
             "⚠️ 重要通知 ⚠️\n\n"
-            "网站访问限制工具 V2.9 已停止支持。\n\n"
+            "Website Blocker V2.9 已停止支持。\n\n"
             "该版本不再接收安全更新和功能改进。\n"
             "建议您升级到最新版本以获得更好的体验和安全保障。\n\n"
             "感谢您的理解与支持！"
