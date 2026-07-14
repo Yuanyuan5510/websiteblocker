@@ -25,16 +25,97 @@ pip install -r requirements.txt
 
 ## 运行程序
 ```bash
-python main.py
+python website_blocker_ui.py
+```
+
+## Nuitka 打包
+
+### 安装 Nuitka
+```bash
+pip install nuitka
+```
+
+### 打包命令
+```bash
+python -m nuitka ^
+    --standalone ^
+    --enable-plugin=pyqt6 ^
+    --windows-console-mode=disable ^
+    --windows-icon-from-ico=app_icon.ico ^
+    --include-data-file=website_blocker_config.json=website_blocker_config.json ^
+    --include-data-file=app_icon.ico=app_icon.ico ^
+    --include-data-file=LICENSE.txt=LICENSE.txt ^
+    --output-dir=dist ^
+    --company-name="yuanyuan5510/wang.station" ^
+    --product-name="Website Blocker" ^
+    --product-version=3.9 ^
+    --file-version=3.9.0.0 ^
+    --file-description="Website Blocker - 网站访问限制工具" ^
+    --copyright="Copyright (c) 2025-2026 yuanyuan5510/wang.station" ^
+    website_blocker_ui.py
+```
+
+### PowerShell 打包命令
+```powershell
+python -m nuitka `
+    --standalone `
+    --enable-plugin=pyqt6 `
+    --windows-console-mode=disable `
+    --windows-icon-from-ico=app_icon.ico `
+    --include-data-file=website_blocker_config.json=website_blocker_config.json `
+    --include-data-file=app_icon.ico=app_icon.ico `
+    --include-data-file=LICENSE.txt=LICENSE.txt `
+    --output-dir=dist `
+    --company-name="yuanyuan5510/wang.station" `
+    --product-name="Website Blocker" `
+    --product-version=3.9 `
+    --file-version=3.9.0.0 `
+    --file-description="Website Blocker - 网站访问限制工具" `
+    --copyright="Copyright (c) 2025-2026 yuanyuan5510/wang.station" `
+    website_blocker_ui.py
+```
+
+### 打包参数说明
+
+| 参数 | 说明 |
+|------|------|
+| `--standalone` | 创建独立可执行文件，包含所有依赖 |
+| `--enable-plugin=pyqt6` | 启用PyQt6插件支持 |
+| `--windows-console-mode=disable` | 禁用控制台窗口（GUI应用） |
+| `--windows-icon-from-ico` | 设置应用图标 |
+| `--include-data-file` | 包含数据文件（配置、许可证等） |
+| `--output-dir` | 输出目录 |
+| `--company-name` | 公司名称 |
+| `--product-name` | 产品名称 |
+| `--product-version` | 产品版本 |
+| `--file-version` | 文件版本 |
+| `--file-description` | 文件描述 |
+| `--copyright` | 版权信息 |
+
+### 打包后目录结构
+```
+dist/
+└── website_blocker_ui.dist/
+    ├── website_blocker_ui.exe    # 主程序
+    ├── app_icon.ico              # 应用图标
+    ├── website_blocker_config.json # 配置文件
+    ├── LICENSE.txt               # 许可证
+    ├── lib/                      # 依赖库
+    └── ...                       # 其他运行时文件
+```
+
+### 创建安装程序
+使用 Inno Setup 创建安装程序：
+```bash
+iscc website_blocker.iss
 ```
 
 ## 核心模块
-- `main.py` - 程序主入口
-- `website_blocker_ui.py` - 主用户界面
-- `config_manager.py` - 配置文件管理
+- `website_blocker_ui.py` - 程序主入口
 - `website_blocker.py` - 核心功能实现
-- `error_handler.py` - 错误处理机制
+- `config_manager.py` - 配置文件管理
 - `data_exchange.py` - 数据交换模块
+- `error_handler.py` - 错误处理机制
 - `logging_config.py` - 日志配置
 
 # 网站访问限制工具 3.9 版本功能系统性汇总

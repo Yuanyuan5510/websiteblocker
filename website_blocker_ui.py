@@ -27,118 +27,163 @@ from error_handler import ErrorHandler, ErrorType, ErrorInfo, error_handler
 from website_blocker import website_blocker
 from config_manager import config_manager
 
+
+def is_nuitka():
+    """检测是否在Nuitka打包环境中运行"""
+    return "__compiled__" in globals() or hasattr(sys, 'frozen')
+
+
+def get_app_dir():
+    """获取应用程序目录（兼容Nuitka打包环境）"""
+    if is_nuitka():
+        # Nuitka打包环境：使用可执行文件目录
+        return os.path.dirname(sys.executable)
+    else:
+        # 开发环境：使用脚本所在目录
+        return os.path.dirname(os.path.abspath(__file__))
+
+
+def get_resource_path(relative_path):
+    """获取资源文件路径（兼容Nuitka打包环境）"""
+    # 尝试多个可能的路径
+    base_dir = get_app_dir()
+
+    paths_to_try = [
+        os.path.join(base_dir, relative_path),  # 可执行文件同级目录
+        os.path.join(base_dir, 'lib', relative_path),  # lib目录下（某些打包工具）
+        os.path.join(base_dir, 'resources', relative_path),  # resources目录下
+    ]
+
+    # 开发环境下，尝试脚本所在目录
+    if not is_nuitka():
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        paths_to_try.insert(0, os.path.join(script_dir, relative_path))
+
+    for path in paths_to_try:
+        if os.path.exists(path):
+            return path
+
+    return None
+
 class VersionCheckThread(QThread):
     """版本检查线程类，在后台执行版本检查"""
     version_checked = pyqtSignal(str, bool)  # 参数：最新版本号，是否有错误
-    
+
+    def __init__(self):
+        super().__init__()
+        self._is_running = False
+
     def run(self):
         """执行版本检查，包含重试机制"""
-        url = "https://websiteblocker-zh.wangstation.ddns-ip.net/version.txt"
-        max_retries = 2
-        retry_count = 0
-        
-        while retry_count <= max_retries:
-            try:
-                logger.info(f"正在检查版本，尝试第 {retry_count + 1} 次，URL: {url}")
-                
-                # 发送HTTP请求获取最新版本
-                with urllib.request.urlopen(url, timeout=5) as response:
-                    # 检查响应状态码
-                    if response.getcode() == 200:
-                        # 读取并处理版本号
-                        latest_version = response.read().decode('utf-8').strip()
-                        logger.info(f"成功获取到最新版本: {latest_version}")
-                        
-                        # 验证版本号格式（至少包含数字）
-                        if any(char.isdigit() for char in latest_version):
-                            self.version_checked.emit(latest_version, False)
-                            return
+        # 防止重复运行
+        if self._is_running:
+            return
+
+        self._is_running = True
+        try:
+            url = "https://websiteblocker.wangstation.dpdns.org/version.txt"
+            max_retries = 2
+            retry_count = 0
+
+            # 创建请求对象，添加User-Agent模拟正常浏览器
+            request = urllib.request.Request(
+                url,
+                headers={
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    'Accept': 'text/plain, */*',
+                    'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+                }
+            )
+
+            while retry_count <= max_retries:
+                try:
+                    logger.info(f"正在检查版本，尝试第 {retry_count + 1} 次，URL: {url}")
+
+                    # 发送HTTP请求获取最新版本
+                    with urllib.request.urlopen(request, timeout=10) as response:
+                        # 检查响应状态码
+                        if response.getcode() == 200:
+                            # 读取并处理版本号
+                            latest_version = response.read().decode('utf-8').strip()
+                            logger.info(f"成功获取到最新版本: {latest_version}")
+
+                            # 验证版本号格式（至少包含数字）
+                            if any(char.isdigit() for char in latest_version):
+                                self.version_checked.emit(latest_version, False)
+                                return
+                            else:
+                                logger.warning(f"获取到的版本号格式无效: '{latest_version}'")
+                                retry_count += 1
                         else:
-                            logger.warning(f"获取到的版本号格式无效: '{latest_version}'")
+                            logger.warning(f"版本检查请求失败，状态码: {response.getcode()}")
                             retry_count += 1
-                    else:
-                        logger.warning(f"版本检查请求失败，状态码: {response.getcode()}")
-                        retry_count += 1
-                
-            except urllib.error.URLError as e:
-                logger.error(f"版本检查网络错误 (尝试 {retry_count + 1}/{max_retries + 1}): {str(e)}")
-                retry_count += 1
-            except Exception as e:
-                logger.error(f"版本检查发生未知错误 (尝试 {retry_count + 1}/{max_retries + 1}): {str(e)}")
-                import traceback
-                logger.debug(f"详细错误信息: {traceback.format_exc()}")
-                retry_count += 1
-        
-        # 所有重试都失败
-        logger.error("版本检查失败，已尝试最大次数")
-        self.version_checked.emit("", True)
+
+                except urllib.error.URLError as e:
+                    logger.error(f"版本检查网络错误 (尝试 {retry_count + 1}/{max_retries + 1}): {str(e)}")
+                    retry_count += 1
+                except Exception as e:
+                    logger.error(f"版本检查发生未知错误 (尝试 {retry_count + 1}/{max_retries + 1}): {str(e)}")
+                    import traceback
+                    logger.debug(f"详细错误信息: {traceback.format_exc()}")
+                    retry_count += 1
+
+            # 所有重试都失败
+            logger.error("版本检查失败，已尝试最大次数")
+            self.version_checked.emit("", True)
+        finally:
+            self._is_running = False
 
 
 class WebsiteBlockerApp(QMainWindow):
     """网站阻止工具主应用类"""
-    
+
     update_log_signal = pyqtSignal(str)
     update_status_signal = pyqtSignal(str, int)
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # 初始化关闭标志
         self._is_restarting = False
-        
+
+        # 模板缓存（优化启动速度）
+        self._template_cache = None
+        self._templates_loaded = False
+
         # 设置基本属性
         self.setWindowTitle("Website Blocker v3.9")
         self.setGeometry(100, 100, 900, 700)
-        
-        # 设置窗口图标
-        # 尝试多种路径，确保在开发环境和打包环境下都能找到图标
-        icon_candidates = []
-        
-        # 1. 优先检查cx_Freeze打包环境
-        if hasattr(sys, '_MEIPASS'):
-            icon_candidates.append(os.path.join(sys._MEIPASS, "app_icon.ico"))
-        
-        # 2. 当前脚本所在目录
-        icon_candidates.append(os.path.join(os.path.dirname(__file__), "app_icon.ico"))
-        
-        # 3. 程序所在目录（获取可执行文件的目录）
-        if getattr(sys, 'frozen', False):
-            # 打包后的可执行文件目录
-            exe_dir = os.path.dirname(sys.executable)
-            icon_candidates.append(os.path.join(exe_dir, "app_icon.ico"))
-        
-        # 4. 开发环境下的路径（当前目录的父目录）
-        icon_candidates.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), "app_icon.ico"))
-        
-        # 5. 当前工作目录
-        icon_candidates.append(os.path.join(os.getcwd(), "app_icon.ico"))
-        
-        # 查找存在的图标文件
-        for icon_path in icon_candidates:
-            if os.path.exists(icon_path):
-                self.setWindowIcon(QIcon(icon_path))
-                logger.info(f"使用图标文件: {icon_path}")
-                break
-        else:
-            logger.warning("未找到图标文件")
-        
-        # 初始化UI
+
+        # 设置窗口图标（优化：减少路径检查）
+        self._load_icon_fast()
+
+        # 初始化UI（优化：延迟加载模板）
         self._init_ui()
-        
+
         # 加载配置
         self._load_config()
-        
-        # 启动版本检查线程（在后台运行，不影响主流程）
-        self._start_version_check()
-        
+
         # 刷新列表
         self._refresh_list()
-        
+
         # 注册错误处理回调
         error_handler.register_error_callback(ErrorType.UI_ERROR, self._handle_ui_error)
-        
+
         # 初始化定时器
         self._init_timers()
+
+        # 延迟启动版本检查（优化启动速度）
+        QTimer.singleShot(2000, self._start_version_check)
+
+    def _load_icon_fast(self):
+        """快速加载图标（兼容Nuitka打包环境）"""
+        icon_path = get_resource_path("app_icon.ico")
+
+        if icon_path:
+            self.setWindowIcon(QIcon(icon_path))
+            logger.debug(f"使用图标文件: {icon_path}")
+        else:
+            logger.warning("未找到图标文件")
     
 
     
@@ -460,21 +505,37 @@ class WebsiteBlockerApp(QMainWindow):
     
     def _load_templates(self):
         """加载网站模板数据"""
-        templates = config_manager.get_website_templates()
-        
-        for category, websites in templates.items():
-            category_item = QTreeWidgetItem(self.template_tree)
-            category_item.setText(0, category)
-            category_item.setFlags(category_item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
-            category_item.setCheckState(0, Qt.CheckState.Unchecked)
-            
-            for website in websites:
-                website_item = QTreeWidgetItem(category_item)
-                website_item.setText(0, website)
-                website_item.setFlags(website_item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
-                website_item.setCheckState(0, Qt.CheckState.Unchecked)
-        
-        self.template_tree.expandAll()
+        # 获取模板数据（使用缓存）
+        if self._template_cache is None:
+            self._template_cache = config_manager.get_website_templates()
+
+        templates = self._template_cache
+
+        if not templates:
+            logger.warning("模板数据为空")
+            return
+
+        # 使用批量添加优化性能
+        self.template_tree.setUpdatesEnabled(False)
+        try:
+            for category, websites in templates.items():
+                category_item = QTreeWidgetItem(self.template_tree)
+                category_item.setText(0, category)
+                category_item.setFlags(category_item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+                category_item.setCheckState(0, Qt.CheckState.Unchecked)
+
+                for website in websites:
+                    website_item = QTreeWidgetItem(category_item)
+                    website_item.setText(0, website)
+                    website_item.setFlags(website_item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+                    website_item.setCheckState(0, Qt.CheckState.Unchecked)
+
+            self.template_tree.expandAll()
+        finally:
+            self.template_tree.setUpdatesEnabled(True)
+
+        self._templates_loaded = True
+        logger.info(f"已加载 {len(templates)} 个模板类别")
     
     def _add_website(self):
         """添加网站到阻止列表"""
@@ -1012,7 +1073,7 @@ Welcome to Website Blocker v3.9
                 
                 if reply == QMessageBox.StandardButton.Yes:
                     # 打开更新网页
-                    update_url = "https://websiteblocker-zh.wangstation.ddns-ip.net/download.html"
+                    update_url = "https://websiteblocker.wangstation.dpdns.org/download.html"
                     logger.info(f"用户选择前往更新网页: {update_url}")
                     import webbrowser
                     webbrowser.open(update_url)
@@ -1048,10 +1109,23 @@ Welcome to Website Blocker v3.9
         )
     
     def closeEvent(self, event):
-        """窗口关闭事件"""
+        """窗口关闭事件（优化：添加资源清理）"""
         # 保存配置
         self._save_config()
-        
+
+        # 停止所有定时器
+        if hasattr(self, 'save_timer'):
+            self.save_timer.stop()
+        if hasattr(self, 'status_timer'):
+            self.status_timer.stop()
+        if hasattr(self, 'version_check_timer'):
+            self.version_check_timer.stop()
+
+        # 清理版本检查线程
+        if hasattr(self, 'version_thread') and self.version_thread.isRunning():
+            self.version_thread.quit()
+            self.version_thread.wait(1000)
+
         # 如果是因为重启而关闭，则不显示确认对话框
         if self._is_restarting:
             event.accept()
@@ -1061,105 +1135,73 @@ Welcome to Website Blocker v3.9
                 self, "确认", "确定要退出程序吗？",
                 QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
             )
-            
+
             if reply == QMessageBox.StandardButton.Yes:
                 event.accept()
             else:
                 event.ignore()
 
 def main():
-    """程序入口函数"""
-    # 在创建任何窗口之前，先检查管理员权限
-    if not website_blocker._is_admin():
-        # 创建一个临时的QApplication实例来显示消息框
-        app = QApplication(sys.argv)
-        
-        reply = QMessageBox.warning(
-            None,  # 没有父窗口
-            "权限请求",
-            "程序需要管理员权限才能正常工作。是否立即申请管理员权限？",
-            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
-        )
-        
-        if reply == QMessageBox.StandardButton.Yes:
-            # 以管理员权限重新启动程序
-            if website_blocker._run_as_admin():
-                # 退出当前实例
-                sys.exit()
-            else:
-                QMessageBox.critical(
-                    None,
-                    "错误",
-                    "申请管理员权限失败。程序将以普通用户权限运行，某些功能可能无法使用。",
-                    QMessageBox.StandardButton.Ok
-                )
-        else:
-            QMessageBox.warning(
-                None,
-                "权限警告",
-                "程序将以普通用户权限运行，某些功能可能无法使用。",
-                QMessageBox.StandardButton.Ok
-            )
-    
+    """程序入口函数（优化启动速度，兼容Nuitka）"""
     # 创建应用
     app = QApplication(sys.argv)
     app.setApplicationName("Website Blocker")
-    
+
     # 实现窗口唯一性校验机制
-    # 使用共享内存来检测是否已有实例在运行
     from PyQt6.QtCore import QSharedMemory
     shared_memory = QSharedMemory("WebsiteBlocker_Instance_Key")
     if shared_memory.attach():
         # 已有实例在运行，显示已存在的窗口并退出
         QMessageBox.information(None, "提示", "程序已经在运行中。")
         sys.exit()
-    
+
     if not shared_memory.create(1):
         # 创建共享内存失败，可能是权限问题
-        QMessageBox.warning(None, "警告", "无法确保程序只运行一个实例。")
-    
-    # 设置应用图标
-    # 尝试多种路径，确保在开发环境和打包环境下都能找到图标
-    icon_candidates = []
-    
-    # 1. 优先检查cx_Freeze打包环境
-    if hasattr(sys, '_MEIPASS'):
-        icon_candidates.append(os.path.join(sys._MEIPASS, "app_icon.ico"))
-    
-    # 2. 当前脚本所在目录
-    icon_candidates.append(os.path.join(os.path.dirname(__file__), "app_icon.ico"))
-    
-    # 3. 程序所在目录（获取可执行文件的目录）
-    if getattr(sys, 'frozen', False):
-        # 打包后的可执行文件目录
-        exe_dir = os.path.dirname(sys.executable)
-        icon_candidates.append(os.path.join(exe_dir, "app_icon.ico"))
-    
-    # 4. 开发环境下的路径（当前目录的父目录）
-    icon_candidates.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), "app_icon.ico"))
-    
-    # 5. 当前工作目录
-    icon_candidates.append(os.path.join(os.getcwd(), "app_icon.ico"))
-    
-    # 查找存在的图标文件
-    for icon_path in icon_candidates:
-        if os.path.exists(icon_path):
-            app.setWindowIcon(QIcon(icon_path))
-            logger.info(f"设置应用图标: {icon_path}")
-            break
-    else:
-        logger.warning("未找到应用图标文件")
-    
+        logger.warning("无法确保程序只运行一个实例。")
+
+    # 设置应用图标（兼容Nuitka）
+    icon_path = get_resource_path("app_icon.ico")
+    if icon_path:
+        app.setWindowIcon(QIcon(icon_path))
+
+    # 在创建主窗口之前，先检查管理员权限（后台检查，不阻塞UI）
+    has_admin = website_blocker._is_admin()
+    if not has_admin:
+        reply = QMessageBox.warning(
+            None,
+            "权限请求",
+            "程序需要管理员权限才能正常工作。\n\n是否立即申请管理员权限？",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+
+        if reply == QMessageBox.StandardButton.Yes:
+            if website_blocker._run_as_admin():
+                sys.exit()
+            else:
+                QMessageBox.critical(
+                    None,
+                    "错误",
+                    "申请管理员权限失败。\n程序将以普通用户权限运行，部分功能可能无法使用。",
+                    QMessageBox.StandardButton.Ok
+                )
+        else:
+            QMessageBox.warning(
+                None,
+                "权限警告",
+                "程序将以普通用户权限运行，部分功能可能无法使用。",
+                QMessageBox.StandardButton.Ok
+            )
+
     # 创建主窗口
     window = WebsiteBlockerApp()
     window.show()
-    
+
     # 运行应用
     exit_code = app.exec()
-    
+
     # 清理共享内存
     shared_memory.detach()
-    
+
     sys.exit(exit_code)
 
 if __name__ == "__main__":

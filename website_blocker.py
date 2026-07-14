@@ -75,27 +75,162 @@ class WebsiteBlocker:
             logger.error(f"检查管理员权限失败: {str(e)}")
             return False
     
+    def _is_packaged(self) -> bool:
+        """检测是否在打包环境中运行"""
+        # 方法1: sys.frozen (cx_Freeze, py2exe)
+        if getattr(sys, 'frozen', False):
+            return True
+
+        # 方法2: sys._MEIPASS (PyInstaller)
+        if hasattr(sys, '_MEIPASS'):
+            return True
+
+        # 方法3: 检查可执行文件扩展名 (Nuitka)
+        if sys.executable:
+            exe_path = sys.executable
+            exe_name = os.path.basename(exe_path).lower()
+
+            # 如果可执行文件名不是Python解释器，则是打包环境
+            python_interpreters = ('python.exe', 'pythonw.exe', 'python3.exe', 'python3w.exe',
+                                   'python3.8.exe', 'python3.9.exe', 'python3.10.exe',
+                                   'python3.11.exe', 'python3.12.exe', 'python3.13.exe')
+
+            if exe_name not in python_interpreters:
+                return True
+
+        # 方法4: Nuitka 特定检测
+        # Nuitka 会创建 .dist 目录
+        if hasattr(sys, 'executable'):
+            exe_dir = os.path.dirname(sys.executable)
+            if exe_dir.endswith('.dist') or '.dist' in exe_dir:
+                return True
+
+        return False
+
+    def _get_executable_path(self) -> str:
+        """获取正确的可执行文件路径"""
+        exe_path = sys.executable
+        logger.debug(f"_get_executable_path: sys.executable={exe_path}")
+
+        # 检查sys.argv[0]是否是编译后的exe文件（优先检查）
+        if len(sys.argv) > 0:
+            argv_path = os.path.abspath(sys.argv[0])
+            logger.debug(f"_get_executable_path: sys.argv[0]={argv_path}")
+
+            if argv_path.endswith('.exe'):
+                # 检查是否是Python解释器
+                exe_name = os.path.basename(argv_path).lower()
+                python_interpreters = ('python.exe', 'pythonw.exe', 'python3.exe', 'python3w.exe')
+
+                if exe_name not in python_interpreters:
+                    # sys.argv[0]是编译后的可执行文件
+                    if os.path.isfile(argv_path):
+                        logger.info(f"检测到编译后的可执行文件 (sys.argv[0]): {argv_path}")
+                        return argv_path
+
+        # 尝试规范化路径（处理DOS短路径）
+        try:
+            import ctypes
+            buffer = ctypes.create_unicode_buffer(260)
+            ctypes.windll.kernel32.GetLongPathNameW(exe_path, buffer, 260)
+            normalized_path = buffer.value if buffer.value else exe_path
+            logger.debug(f"_get_executable_path: 规范化路径={normalized_path}")
+        except Exception:
+            normalized_path = exe_path
+
+        # 检查sys.executable是否存在且是有效文件
+        if os.path.isfile(normalized_path):
+            exe_name = os.path.basename(normalized_path).lower()
+            python_interpreters = ('python.exe', 'pythonw.exe', 'python3.exe', 'python3w.exe')
+
+            if exe_name not in python_interpreters:
+                # sys.executable是编译后的可执行文件
+                logger.info(f"使用sys.executable: {normalized_path}")
+                return normalized_path
+
+        # 回退：检查是否在.dist目录中
+        if exe_path:
+            exe_dir = os.path.dirname(exe_path)
+            if '.dist' in exe_dir.lower() or exe_dir.endswith('.dist'):
+                if os.path.exists(exe_dir):
+                    for file in os.listdir(exe_dir):
+                        if file.endswith('.exe') and not file.lower().startswith('python'):
+                            potential_exe = os.path.join(exe_dir, file)
+                            logger.info(f"在.dist目录中找到可执行文件: {potential_exe}")
+                            return potential_exe
+
+        logger.warning(f"无法确定正确的可执行文件路径，使用默认: {exe_path}")
+        return exe_path
+
     def _run_as_admin(self) -> bool:
         """以管理员权限重新启动程序"""
         try:
             if platform.system() == "Windows":
-                # 获取当前可执行文件路径
-                script = os.path.abspath(sys.argv[0])
-                
+                # 获取正确的可执行文件路径
+                exe_path = self._get_executable_path()
+                working_dir = os.path.dirname(exe_path)
+
+                logger.info(f"检测打包环境: frozen={getattr(sys, 'frozen', False)}")
+                logger.info(f"sys.executable: {sys.executable}")
+                logger.info(f"实际使用路径: {exe_path}")
+                logger.info(f"工作目录: {working_dir}")
+                logger.info(f"文件存在: {os.path.exists(exe_path)}")
+
+                if self._is_packaged():
+                    # 打包环境：直接运行可执行文件，参数为None
+                    params = None
+                    logger.info(f"打包环境 - 请求管理员权限重启")
+                else:
+                    # 开发环境：使用Python解释器和脚本路径
+                    script = os.path.abspath(sys.argv[0])
+                    params = f'"{script}"'
+                    logger.info(f"开发环境 - 请求管理员权限重启: {exe_path} {params}")
+
+                # 确保文件存在
+                if not os.path.exists(exe_path):
+                    logger.error(f"可执行文件不存在: {exe_path}")
+                    return False
+
                 # 使用ShellExecute重新启动程序，并请求管理员权限
                 # "runas" 表示以管理员权限运行
-                ctypes.windll.shell32.ShellExecuteW(
-                    None,
-                    "runas",
-                    sys.executable,
-                    f'"{script}"',
-                    None,
-                    1  # SW_SHOWNORMAL
+                result = ctypes.windll.shell32.ShellExecuteW(
+                    None,           # hwnd
+                    "runas",        # 操作：请求管理员权限
+                    exe_path,       # 可执行文件路径
+                    params,         # 参数（打包环境为None）
+                    working_dir,    # 工作目录
+                    1               # SW_SHOWNORMAL
                 )
-                return True
+
+                # ShellExecuteW返回值说明
+                # > 32: 成功
+                # 0: 内存不足
+                # 2: 文件未找到
+                # 3: 路径未找到
+                # 5: 访问被拒绝
+                # 31: 无应用程序关联
+                # 32: DLL未找到
+
+                if result > 32:
+                    logger.info(f"管理员权限请求成功，返回值: {result}")
+                    return True
+                else:
+                    error_messages = {
+                        0: "内存不足",
+                        2: "文件未找到",
+                        3: "路径未找到",
+                        5: "访问被拒绝",
+                        31: "无应用程序关联",
+                        32: "DLL未找到"
+                    }
+                    error_msg = error_messages.get(result, f"未知错误")
+                    logger.error(f"管理员权限请求失败，错误码: {result} ({error_msg})")
+                    return False
             return False
         except Exception as e:
             logger.error(f"请求管理员权限失败: {str(e)}")
+            import traceback
+            logger.debug(f"详细错误: {traceback.format_exc()}")
             return False
     
     def _handle_permission_error(self, error_info: ErrorInfo):
