@@ -10,72 +10,34 @@ import time
 import subprocess
 import socket
 import signal
+import webbrowser
 from datetime import datetime
 import atexit
 import math
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
 
-# 配置日志
+# Version Info
+APP_VERSION = "2.9"
+UPDATE_URL = "https://websiteblocker.wangstation.dpdns.org/download.html"
+
+# Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger('WebsiteBlocker')
 
-# 设置中文字体
+# Set font
 tk_font = ('SimHei', 10)
-
-# 声明全局logger变量
-logger = None
-
-# 设置日志配置
-def setup_logging():
-    """配置日志记录"""
-    global logger  # 声明使用全局变量
-    try:
-        # 创建日志目录
-        log_dir = os.path.join(os.environ.get('APPDATA', os.path.expanduser('~')), 'WebsiteBlocker', 'logs')
-        os.makedirs(log_dir, exist_ok=True)
-        
-        # 配置日志
-        log_file = os.path.join(log_dir, f"website_blocker_{datetime.now().strftime('%Y%m%d')}.log")
-        logging.basicConfig(
-            level=logging.INFO,
-            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-            handlers=[
-                logging.FileHandler(log_file),
-                logging.StreamHandler()
-            ]
-        )
-        
-        # 创建logger实例
-        logger = logging.getLogger('WebsiteBlockerV2.9')
-    except Exception as e:
-        print(f"设置日志失败: {str(e)}")
-        # 如果日志设置失败，创建一个简单的logger替代品
-        class SimpleLogger:
-            def info(self, msg):
-                print(f"[INFO] {msg}")
-            def error(self, msg, exc_info=False):
-                print(f"[ERROR] {msg}")
-                if exc_info:
-                    import traceback
-                    traceback.print_exc()
-            def warning(self, msg):
-                print(f"[WARNING] {msg}")
-        
-        logger = SimpleLogger()
 
 class WebsiteBlockerApp:
     def __init__(self, root):
-        # 首先检查是否具有管理员权限，如果没有，自动请求
+        # Check admin privileges first
         if not self._is_admin():
             result = messagebox.askyesno(
                 "权限不足", 
                 "此程序需要管理员权限才能正常工作，是否以管理员身份重新启动程序？"
             )
             if result:
-                # 以管理员权限重新启动程序
                 if self._run_as_admin():
-                    # 如果成功请求到管理员权限并重新启动，退出当前实例
                     root.destroy()
                     sys.exit(0)
                 else:
@@ -86,7 +48,7 @@ class WebsiteBlockerApp:
                 messagebox.showwarning("权限警告", "部分功能需要管理员权限才能使用，请手动以管理员身份运行程序")
         
         self.root = root
-        self.root.title("Website Blocker V2.9")
+        self.root.title(f"Website Blocker V{APP_VERSION}")
         self.root.geometry("600x500")
         self.root.resizable(True, True)
         
@@ -167,7 +129,7 @@ class WebsiteBlockerApp:
         # 设置退出处理
         self._setup_exit_handlers()
         
-        # 显示版本不再支持的警告
+        # Show deprecation warning
         messagebox.showwarning(
             "版本不再支持", 
             "警告: Version 2.9 已不再支持。请考虑升级到最新版本。"
@@ -713,20 +675,20 @@ class WebsiteBlockerApp:
 
 
     def _create_ui(self):
-        """创建用户界面"""
-        # 创建主框架
+        """Create user interface"""
+        # Create main frame
         main_frame = ttk.Frame(self.root, padding="10")
         main_frame.pack(fill=tk.BOTH, expand=True)
         
-        # 标题标签
-        title_label = ttk.Label(main_frame, text="网站访问限制工具 V2.9", font=('SimHei', 14, 'bold'))
+        # Title label with version
+        title_label = ttk.Label(main_frame, text=f"Website Blocker V{APP_VERSION}", font=('SimHei', 14, 'bold'))
         title_label.pack(pady=10)
         
-        # 当前阻止信息
+        # Current block status
         status_frame = ttk.Frame(main_frame)
         status_frame.pack(fill=tk.X, pady=5)
         
-        status_text = f"当前阻止的网站数量: {len(self.blocked_websites)}"
+        status_text = f"Blocked websites: {len(self.blocked_websites)}"
         if self._is_admin():
             status_text += " (已获得管理员权限)"
         else:
@@ -739,11 +701,11 @@ class WebsiteBlockerApp:
         refresh_btn = ttk.Button(status_frame, text="刷新列表", command=self._refresh_list)
         refresh_btn.pack(side=tk.RIGHT)
         
-        # 网站列表框架
+        # Website list frame
         list_frame = ttk.Frame(main_frame)
         list_frame.pack(fill=tk.BOTH, expand=True, pady=10)
         
-        # 滚动条
+        # Scrollbar
         scrollbar = ttk.Scrollbar(list_frame)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         
@@ -755,11 +717,11 @@ class WebsiteBlockerApp:
         
         scrollbar.config(command=self.website_tree.yview)
         
-        # 操作按钮框架
+        # Action button frame
         action_frame = ttk.Frame(main_frame)
         action_frame.pack(fill=tk.X, pady=10)
         
-        # 添加网站
+        # Add website
         add_frame = ttk.Frame(action_frame)
         add_frame.pack(fill=tk.X, pady=5)
         
@@ -770,7 +732,7 @@ class WebsiteBlockerApp:
         
         ttk.Button(add_frame, text="添加阻止", command=self._add_website_ui).pack(side=tk.LEFT, padx=5)
         
-        # 其他操作按钮
+        # Other action buttons
         btn_frame = ttk.Frame(action_frame)
         btn_frame.pack(fill=tk.X, pady=5)
         
@@ -778,7 +740,7 @@ class WebsiteBlockerApp:
         ttk.Button(btn_frame, text="解除所有限制", command=self._clear_all_blocks_ui).pack(side=tk.LEFT, padx=5)
         ttk.Button(btn_frame, text="恢复hosts备份", command=self._restore_hosts_ui).pack(side=tk.LEFT, padx=5)
         
-        # 底部信息标签
+        # Footer info
         footer_frame = ttk.Frame(main_frame)
         footer_frame.pack(fill=tk.X, pady=10)
         
@@ -787,12 +749,27 @@ class WebsiteBlockerApp:
         example_label = ttk.Label(footer_frame, text=example_text, font=('SimHei', 10, 'italic'))
         example_label.pack(side=tk.LEFT)
         
-        # 添加版本信息
-        version_label = ttk.Label(footer_frame, text="版本 2.9", font=('SimHei', 10))
+        # Version info
+        version_label = ttk.Label(footer_frame, text=f"Version {APP_VERSION}", font=('SimHei', 10))
         version_label.pack(side=tk.RIGHT)
         
-        # 填充初始列表
+        # Fill initial list
         self._refresh_list()
+    
+    def _check_update(self):
+        """Check for updates"""
+        result = messagebox.askyesno(
+            "Check Update", 
+            f"Current Version: V{APP_VERSION}\n\nDo you want to visit the download page to check for latest version?",
+            icon='question'
+        )
+        if result:
+            try:
+                webbrowser.open(UPDATE_URL)
+                logger.info(f"Opened update page: {UPDATE_URL}")
+            except Exception as e:
+                logger.error(f"Failed to open update page: {e}")
+                messagebox.showerror("Error", f"Cannot open update page: {e}")
     
     def _refresh_list(self):
         """刷新网站列表"""
@@ -1183,7 +1160,7 @@ class WebsiteBlockerApp:
                 self._refresh_list()
     
     def _show_deprecation_warning(self):
-        """显示版本不再支持的警告"""
+        """Show version deprecation warning"""
         deprecation_msg = (
             "⚠️ 重要通知 ⚠️\n\n"
             "Website Blocker V2.9 已停止支持。\n\n"

@@ -1,115 +1,228 @@
-; 网站访问限制工具安装脚本
-; Inno Setup Script for Website Blocker Tool
+; ============================================================================
+; Website Blocker v2.9 - Inno Setup Installation Script
+; Copyright (c) 2025-2026 yuanyuan5510/wang.station
+; Licensed under CC BY-NC 4.0
+; ============================================================================
 
-#define AppName "网站访问限制工具"
+#define MyAppName "Website Blocker"
+#define MyAppDisplayName "Website Blocker"
+#define MyAppVersion "2.9"
+#define MyAppPublisher "yuanyuan5510/wang.station"
+#define MyAppURL "https://websiteblocker.wangstation.dpdns.org/"
+#define AppGUID "{{6f1330ab-8f4f-438e-a02a-c8453d10ff1f}}"
 
+; ============================================================================
+; [Setup] - Basic Configuration
+; ============================================================================
 [Setup]
-; 基本信息
-AppName=网站访问限制工具
-AppVerName=网站访问限制工具 2.9
-AppVersion=2.9
-AppPublisher=Administrator
-AppPublisherURL=https://websiteblocker-zh.wangstation.ddns-ip.net/
-AppSupportURL=https://websiteblocker-zh.wangstation.ddns-ip.net/
-AppUpdatesURL=https://websiteblocker-zh.wangstation.ddns-ip.net/
+AppId={#AppGUID}
+AppName={#MyAppName}
+AppVersion={#MyAppVersion}
+AppVerName={#MyAppName} {#MyAppVersion}
+AppPublisher={#MyAppPublisher}
+AppPublisherURL={#MyAppURL}
+AppSupportURL={#MyAppURL}
+AppUpdatesURL={#MyAppURL}
+AppCopyright=Copyright (c) 2025-2026 {#MyAppPublisher}
 
-; 安装目录设置
-DefaultDirName={autopf}\\WebsiteBlocker
-DefaultGroupName=WebsiteBlocker
-OutputBaseFilename=WebsiteBlocker_Setup_2.9
+DefaultDirName={autopf}\{#MyAppName}
+DefaultGroupName={#MyAppName}
+UninstallDisplayIcon={app}\Website Blocker.exe
+UninstallDisplayName={#MyAppName}
+
 OutputDir=Output
+OutputBaseFilename=WebsiteBlocker_Setup_v{#MyAppVersion}
+SetupIconFile=app_icon.ico
+LicenseFile=LICENSE.txt
 
-; 安装程序设置
+; Compression Settings
 Compression=lzma2/ultra64
 SolidCompression=yes
-SetupIconFile=app_icon.ico
-UninstallDisplayIcon={app}\\app_icon.ico
+LZMAUseSeparateProcess=yes
+LZMANumBlockThreads=4
 
-; 安装模式
+; Permissions
 PrivilegesRequired=admin
+PrivilegesRequiredOverridesAllowed=dialog
 
-; 其他设置
+; UI Settings
 WizardStyle=modern
-DisableProgramGroupPage=no
-AllowNoIcons=no
-DirExistsWarning=yes
-CreateUninstallRegKey=yes
+WindowVisible=yes
+WindowShowCaption=yes
+WindowResizable=no
+DisableProgramGroupPage=yes
+AllowNoIcons=yes
 
+; Signature Settings (Configure in Inno Setup Compiler)
+SignTool=SignTool
+SignedUninstaller=yes
+
+; ============================================================================
+; [Languages] - Multi-language Support
+; ============================================================================
 [Languages]
-Name: "ChineseSimplified"; MessagesFile: "compiler:\Languages\ChineseSimplified.isl"
-Name: "English"; MessagesFile: "compiler:\Languages\EnglishBritish.isl"
-Name: "French"; MessagesFile: "compiler:\Languages\French.isl"
-Name: "Russian"; MessagesFile: "compiler:\Languages\Russian.isl"
+Name: "ChineseSimplified"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
+Name: "English"; MessagesFile: "compiler:Languages\English.isl"
 
-[Files]
-; 主程序文件
-Source: "dist\\网站访问限制工具.exe"; DestDir: "{app}"; Flags: ignoreversion
-
-; 图标文件
-Source: "dist\\app_icon.ico"; DestDir: "{app}"; Flags: ignoreversion
-
-; 配置文件（如果存在）
-Source: "config.json"; DestDir: "{app}"; Flags: ignoreversion
-
-; 依赖库目录
-Source: "dist\\lib\\*"; DestDir: "{app}\\lib"; Flags: ignoreversion recursesubdirs createallsubdirs
-
-; 共享目录
-Source: "dist\\share\\*"; DestDir: "{app}\\share"; Flags: ignoreversion recursesubdirs createallsubdirs
-
-; 其他依赖文件
-Source: "dist\\python313.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "dist\\frozen_application_license.txt"; DestDir: "{app}"; Flags: ignoreversion
-
-; C++ 运行时库文件
-Source: "dist\\*.dll"; DestDir: "{app}"; Flags: ignoreversion
-
-[Icons]
-; 桌面快捷方式
-Name: "{autodesktop}\\{#AppName}"; Filename: "{app}\\网站访问限制工具.exe"; WorkingDir: "{app}"; IconFilename: "{app}\\app_icon.ico"; Comment: "网站访问限制工具"
-
-; 开始菜单快捷方式
-Name: "{group}\\{#AppName}"; Filename: "{app}\\网站访问限制工具.exe"; WorkingDir: "{app}"; IconFilename: "{app}\\app_icon.ico"; Comment: "网站访问限制工具"
-Name: "{group}\\卸载 {#AppName}"; Filename: "{uninstallexe}"; Comment: "卸载网站访问限制工具"
-
-[Tasks]
-Name: "desktopicon"; Description: "创建桌面快捷方式"; GroupDescription: "快捷方式"; Flags: checkedonce
-Name: "startmenuicon"; Description: "创建开始菜单快捷方式"; GroupDescription: "快捷方式"; Flags: checkedonce
-
-[Run]
-; 安装完成后运行程序
-Filename: "{app}\\网站访问限制工具.exe"; Description: "运行网站访问限制工具"; Flags: nowait postinstall skipifsilent
-
-[UninstallRun]
-; 卸载前关闭正在运行的程序
-Filename: "taskkill.exe"; Parameters: "/f /im 网站访问限制工具.exe"; Flags: runhidden
-
-[UninstallDelete]
-; 卸载时删除所有文件和目录
-Type: filesandordirs; Name: "{app}"
-
+; ============================================================================
+; [Messages] - Custom Messages
+; ============================================================================
 [Messages]
-; 自定义安装消息
-WelcomeLabel1=欢迎使用 [AppName] 安装向导
-WelcomeLabel2=点击 "下一步" 继续或 "取消" 退出安装向导
+ChineseSimplified.WelcomeLabel1=Welcome to {#MyAppDisplayName} Setup Wizard
+ChineseSimplified.WelcomeLabel2=This program will install {#MyAppDisplayName} {#MyAppVersion} on your computer.%n%nClick Next to continue or Cancel to exit.
 
-DirPageLabel1=请选择 [AppName] 的安装目录：
-DirPageLabel2=安装程序将在以下目录安装 [AppName]。要安装到其他目录，请点击 "浏览"。点击 "下一步" 继续。
+English.WelcomeLabel1=Welcome to {#MyAppDisplayName} Setup Wizard
+English.WelcomeLabel2=This program will install {#MyAppDisplayName} {#MyAppVersion} on your computer.%n%nClick Next to continue or Cancel to exit.
 
-SelectProgramGroupLabel1=选择程序组：
-SelectProgramGroupLabel2=安装程序将在开始菜单中创建以下程序组。点击 "下一步" 继续。
+; ============================================================================
+; [CustomMessages] - Custom Message Variables
+; ============================================================================
+[CustomMessages]
+ChineseSimplified.AppDesc={#MyAppDisplayName}
+ChineseSimplified.LaunchApp=Run {#MyAppDisplayName}
 
-ReadyLabel1=准备安装 [AppName]：
-ReadyLabel2=点击 "安装" 开始安装。点击 "上一步" 更改设置。
+English.AppDesc={#MyAppDisplayName}
+English.LaunchApp=Run {#MyAppDisplayName}
 
-FinishedLabel1=安装完成
-FinishedLabel2=[AppName] 已成功安装到您的计算机上。
+; ============================================================================
+; [Tasks] - Installation Tasks
+; ============================================================================
+[Tasks]
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: checkedonce
+Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 6.1
 
-UninstallWelcomeLabel1=欢迎使用 [AppName] 卸载向导
-UninstallWelcomeLabel2=点击 "下一步" 继续或 "取消" 退出卸载向导
+; ============================================================================
+; [Files] - Installation Files
+; ============================================================================
+[Files]
+; Main Executable
+Source: "dist\Website Blocker.exe"; DestDir: "{app}"; Flags: ignoreversion signonce
 
-UninstallReadyLabel1=准备卸载 [AppName]：
-UninstallReadyLabel2=点击 "卸载" 开始卸载。点击 "上一步" 更改设置。
+; Icon File
+Source: "dist\app_icon.ico"; DestDir: "{app}"; Flags: ignoreversion
 
-UninstallFinishedLabel1=卸载完成
-UninstallFinishedLabel2=[AppName] 已成功从您的计算机上卸载。
+; Configuration File
+Source: "config.json"; DestDir: "{userappdata}\WebsiteBlocker"; Flags: onlyifdoesntexist ignoreversion
+
+; Library Directory
+Source: "dist\lib\*"; DestDir: "{app}\lib"; Flags: ignoreversion recursesubdirs createallsubdirs
+
+; Share Directory (Tcl Resources)
+Source: "dist\share\*"; DestDir: "{app}\share"; Flags: ignoreversion recursesubdirs createallsubdirs
+
+; Python DLL
+Source: "dist\python*.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+; Other DLL files
+Source: "dist\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+; License File
+Source: "LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion
+
+; ============================================================================
+; [Icons] - Shortcuts
+; ============================================================================
+[Icons]
+; Start Menu
+Name: "{group}\{#MyAppName}"; Filename: "{app}\Website Blocker.exe"; WorkingDir: "{app}"; Comment: "{cm:AppDesc}"
+Name: "{group}\Uninstall {#MyAppName}"; Filename: "{uninstallexe}"; Comment: "Uninstall {#MyAppName}"
+
+; Desktop
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\Website Blocker.exe"; WorkingDir: "{app}"; Comment: "{cm:AppDesc}"; Tasks: desktopicon
+
+; Quick Launch
+Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Filename: "{app}\Website Blocker.exe"; WorkingDir: "{app}"; Tasks: quicklaunchicon
+
+; ============================================================================
+; [Run] - Post-installation
+; ============================================================================
+[Run]
+Filename: "{app}\Website Blocker.exe"; Description: "{cm:LaunchApp}"; Flags: nowait postinstall skipifsilent unchecked
+
+; ============================================================================
+; [Registry] - Registry Configuration
+; ============================================================================
+[Registry]
+; Application Information
+Root: HKLM; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; ValueType: string; ValueName: "Version"; ValueData: "{#MyAppVersion}"; Flags: uninsdeletekey
+Root: HKLM; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"
+Root: HKLM; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; ValueType: string; ValueName: "Publisher"; ValueData: "{#MyAppPublisher}"
+
+; Firewall Rules (Requires Admin)
+Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules"; ValueType: string; ValueName: "{#MyAppName}_In"; ValueData: "v2.10|Action=Allow|Active=TRUE|Dir=In|App={app}\Website Blocker.exe|Name={#MyAppDisplayName}|"; Flags: uninsdeletevalue
+Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules"; ValueType: string; ValueName: "{#MyAppName}_Out"; ValueData: "v2.10|Action=Allow|Active=TRUE|Dir=Out|App={app}\Website Blocker.exe|Name={#MyAppDisplayName}|"; Flags: uninsdeletevalue
+
+; ============================================================================
+; [Code] - Pascal Script
+; ============================================================================
+[Code]
+var
+  OldVersion: String;
+  ErrorCode: Integer;
+
+function InitializeSetup(): Boolean;
+begin
+  // Check for existing version
+  if RegQueryStringValue(HKLM, 'Software\{#MyAppPublisher}\{#MyAppName}', 'Version', OldVersion) then
+  begin
+    if MsgBox('Version ' + OldVersion + ' is already installed. Do you want to uninstall it first?', mbConfirmation, MB_YESNO) = IDYES then
+    begin
+      if RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{#AppGUID}_is1', 'UninstallString', OldVersion) then
+      begin
+        OldVersion := RemoveQuotes(OldVersion);
+        Exec(OldVersion, '/SILENT /NORESTART', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+      end;
+    end;
+  end;
+  Result := True;
+end;
+
+function InitializeUninstall(): Boolean;
+begin
+  if MsgBox('Are you sure you want to uninstall {#MyAppName}?', mbConfirmation, MB_YESNO) = IDYES then
+    Result := True
+  else
+    Result := False;
+end;
+
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+var
+  ConfigPath: String;
+begin
+  if CurUninstallStep = usPostUninstall then
+  begin
+    // Ask to keep configuration
+    if MsgBox('Do you want to keep your configuration files?', mbConfirmation, MB_YESNO) = IDNO then
+    begin
+      ConfigPath := ExpandConstant('{userappdata}\WebsiteBlocker');
+      DelTree(ConfigPath, True, True, True);
+    end;
+  end;
+end;
+
+; ============================================================================
+; [UninstallDelete] - Cleanup
+; ============================================================================
+[UninstallDelete]
+Type: files; Name: "{app}\*.log"
+Type: files; Name: "{app}\*.tmp"
+Type: dirifempty; Name: "{app}\lib"
+Type: dirifempty; Name: "{app}\share"
+Type: dirifempty; Name: "{app}"
+
+; ============================================================================
+; [UninstallRun] - Pre-uninstall
+; ============================================================================
+[UninstallRun]
+Filename: "taskkill.exe"; Parameters: "/f /im ""Website Blocker.exe"""; Flags: runhidden; RunOnceId: "KillApp"
+
+; ============================================================================
+; Build Instructions:
+; ============================================================================
+; 1. Ensure dist directory contains built executables
+; 2. Configure SignTool in Inno Setup Compiler:
+;    Tools -> Configure Sign Tools -> Add:
+;    Name: SignTool
+;    Command: "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe" sign /f "cert.pfx" /p $p /tr http://timestamp.digicert.com /td sha256 /fd sha256 $f
+; 3. Build with: ISCC.exe /SSignTool=password website_blocker.iss
+; ============================================================================
