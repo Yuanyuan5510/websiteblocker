@@ -5,6 +5,9 @@ from tkinter import ttk, messagebox, simpledialog
 from datetime import datetime
 import logging
 
+# 版本信息
+APP_VERSION = "3.8"
+
 # 配置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger('ConfigManager')
@@ -289,7 +292,7 @@ class ConfigManagerApp:
             config = {
                 **existing_config,  # 保留现有配置中的其他字段
                 "last_run": datetime.now().isoformat(),
-                "version": "3.7",
+                "version": APP_VERSION,
                 "blocked_websites": self.config["blocked_websites"],
                 "auto_clear_on_exit": self.config["auto_clear_on_exit"],
                 "external_storage_enabled": self.config["external_storage_enabled"]
@@ -662,7 +665,7 @@ def cli_mode(args=None):
             save_config = {
                 **existing_config,
                 "last_run": datetime.now().isoformat(),
-                "version": "3.7",
+                "version": APP_VERSION,
                 "blocked_websites": config["blocked_websites"],
                 "auto_clear_on_exit": config["auto_clear_on_exit"],
                 "external_storage_enabled": config["external_storage_enabled"]

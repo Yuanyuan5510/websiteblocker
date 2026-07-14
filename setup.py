@@ -11,9 +11,9 @@ from cx_Freeze import setup, Executable
 
 # 基本信息
 NAME = "Website Blocker"
-VERSION = "3.7"
+VERSION = "3.8"
 DESCRIPTION = "一个简单高效的website blocking tool"
-AUTHOR = "Administrator"
+AUTHOR = "yuanyuan5510/wang.station"
 
 # 获取当前目录
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

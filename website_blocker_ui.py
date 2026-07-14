@@ -9,11 +9,16 @@ import platform
 import time
 import subprocess
 import socket
+import webbrowser
 from datetime import datetime
 import atexit
 import math
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
+
+# 版本信息
+APP_VERSION = "3.8"
+UPDATE_URL = "https://websiteblocker.wangstation.dpdns.org/download.html"
 
 # 配置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -44,7 +49,7 @@ class WebsiteBlockerApp:
                 messagebox.showwarning("权限警告", "部分功能需要管理员权限才能使用，请手动以管理员身份运行程序")
         
         self.root = root
-        self.root.title("Website Blocker")
+        self.root.title(f"Website Blocker v{APP_VERSION}")
         self.root.geometry("600x500")
         self.root.resizable(True, True)
         
@@ -492,6 +497,7 @@ class WebsiteBlockerApp:
         ttk.Button(btn_frame, text="移除选中", command=self._remove_website_ui).pack(side=tk.LEFT, padx=5)
         ttk.Button(btn_frame, text="解除所有限制", command=self._clear_all_blocks_ui).pack(side=tk.LEFT, padx=5)
         ttk.Button(btn_frame, text="恢复hosts备份", command=self._restore_hosts_ui).pack(side=tk.LEFT, padx=5)
+        ttk.Button(btn_frame, text="检查更新", command=self._check_update).pack(side=tk.LEFT, padx=5)
         
         # 底部信息
         footer_frame = ttk.Frame(main_frame)
@@ -815,7 +821,7 @@ class WebsiteBlockerApp:
             temp_config['blocked_websites'] = all_websites
             
             # 更新版本和最后运行时间
-            temp_config['version'] = "3.7"
+            temp_config['version'] = APP_VERSION
             temp_config['last_run'] = datetime.now().isoformat()
             
             # 保存更新后的配置
@@ -850,7 +856,7 @@ class WebsiteBlockerApp:
             config = {
                 'blocked_websites': self.blocked_websites,  # 始终使用当前内存中的阻止列表
                 'last_run': datetime.now().isoformat(),
-                'version': '3.7',
+                'version': APP_VERSION,
                 'auto_clear_on_exit': self.config.get('auto_clear_on_exit', True),
                 'external_storage_enabled': self.config.get('external_storage_enabled', False)
             }
@@ -901,6 +907,20 @@ class WebsiteBlockerApp:
                 self._load_blocked_websites()
                 messagebox.showinfo("成功", "hosts文件已恢复")
                 self._refresh_list()
+    
+    def _check_update(self):
+        """检查更新"""
+        result = messagebox.askyesno(
+            "检查更新",
+            f"当前版本: {APP_VERSION}\n\n是否前往下载页面检查最新版本？"
+        )
+        if result:
+            try:
+                webbrowser.open(UPDATE_URL)
+                logger.info(f"已打开更新页面: {UPDATE_URL}")
+            except Exception as e:
+                logger.error(f"打开更新页面失败: {str(e)}")
+                messagebox.showerror("错误", f"无法打开更新页面: {str(e)}")
 
 if __name__ == "__main__":
     try:
