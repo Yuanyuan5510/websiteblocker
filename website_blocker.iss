@@ -62,7 +62,7 @@ SignedUninstaller=yes
 ; ============================================================================
 [Languages]
 Name: "ChineseSimplified"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
-Name: "English"; MessagesFile: "compiler:Languages\English.isl"
+Name: "English"; MessagesFile: "compiler:Languages\EnglishBritish.isl"
 
 ; ============================================================================
 ; [Messages] - Custom Messages
@@ -200,9 +200,6 @@ begin
   end;
 end;
 
-; ============================================================================
-; [UninstallDelete] - Cleanup
-; ============================================================================
 [UninstallDelete]
 Type: files; Name: "{app}\*.log"
 Type: files; Name: "{app}\*.tmp"
