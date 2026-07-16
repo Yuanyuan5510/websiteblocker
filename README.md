@@ -7,9 +7,8 @@
 - 网站访问控制：阻止和管理访问特定网站
 - 定时调度：支持Cron表达式的任务调度
 - Hosts文件管理：自动化Hosts文件操作
-- DNS服务器：内置DNS服务器，提供域名解析服务
 - 通知系统：跨平台通知功能（Windows、macOS、Linux）
-- 白名单功能：支持域名白名单设置
+- 白名单功能：支持域名白名单设置（存在问题，正在修复）
 - 配置迁移：支持从旧版本（v1.9-v3.9）导入配置
 - 端口检测：检测端口占用情况
 
@@ -67,9 +66,6 @@ uvicorn app.main:app --host 127.0.0.1 --port 16411
 ```bash
 # 无终端版本（后台运行）
 WebsiteBlockerBackend.exe
-
-# 有终端版本（调试用）
-WebsiteBlockerBackend_Console.exe
 ```
 
 ### 服务信息
@@ -96,7 +92,6 @@ python setup.py build
 | 文件 | 说明 | 适用场景 |
 |------|------|----------|
 | WebsiteBlockerBackend.exe | 无终端版本（GUI模式） | 正常使用，后台运行 |
-| WebsiteBlockerBackend_Console.exe | 有终端版本（控制台模式） | 调试、查看日志输出 |
 
 ### 打包说明
 
@@ -152,7 +147,7 @@ Windows: %APPDATA%\WebsiteBlocker\
 
 ## 许可证
 
-Creative Commons Attribution-NonCommercial 4.0 International Public License
+GPL 3.0
 
 ## 作者
 
