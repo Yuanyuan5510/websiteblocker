@@ -20,3 +20,4 @@ certificates/
 tmp/
 
 *.iss
+*.zip
