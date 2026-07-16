@@ -2,7 +2,6 @@
 
 > 一款基于 Python + Node.js 的网站访问限制工具，通过修改系统 hosts 文件实现对特定网站的访问控制。
 
-[![GPL v3](https://img.shields.io/badge/License-GPL-v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 [![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-18.0-green.svg)](https://nodejs.org/)
 [![Windows](https://img.shields.io/badge/Windows-11-green.svg)](https://www.microsoft.com/windows/)
