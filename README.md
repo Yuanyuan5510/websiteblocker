@@ -62,7 +62,7 @@ python setup.py build
 
 ## License
 
-This project is licensed under **CC BY-NC 4.0** - see [LICENSE.txt](LICENSE.txt) for details.
+This project is licensed under **GPL 3.0** - see [LICENSE.txt](LICENSE.txt) for details.
 
 Copyright (c) 2025-2026 Yuanyuan5510
 
