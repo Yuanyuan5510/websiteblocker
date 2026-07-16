@@ -1,10 +1,13 @@
-# <img src="app_icon.ico" alt="ico" height="30em" style="vertical-align: middle;"> WebsiteBlocker
+# <img src="app_icon.ico" alt="ico" height="30em" style="vertical-align: middle;"> WebsiteBlocker 
 
-> A Python + PyQt6 based website access restriction tool that blocks specified websites by modifying the system hosts file.
+> A Python + Node.js based website access restriction tool that blocks specified websites by modifying the system hosts file.(4.5 version)
 
-[![CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+[![GPL v3](https://img.shields.io/badge/License-GPL-v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 [![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/)
-[![PyQt6](https://img.shields.io/badge/PyQt-6.6.0-green.svg)](https://www.riverbankcomputing.com/software/pyqt/)
+[![Node.js](https://img.shields.io/badge/Node.js-18.0-green.svg)](https://nodejs.org/)
+[![Windows](https://img.shields.io/badge/Windows-11-green.svg)](https://www.microsoft.com/windows/)
+[![Vite](https://img.shields.io/badge/Vite-4.4.9-green.svg)](https://vitejs.dev/)
+[![Electron](https://img.shields.io/badge/Electron-18.0.0-green.svg)](https://www.electronjs.org/)
 
 > [🇨🇳 中文版](README.zh.md)
 
@@ -28,6 +31,7 @@ WebsiteBlocker is a desktop utility for managing website access, ideal for perso
 
 | Version | Status | Highlights |
 |---------|--------|------------|
+| **[v4.5](https://github.com/Yuanyuan5510/websiteblocker/tree/4.5)** | Latest | Optimized performance, improved stability, and enhanced features. |
 | **[v4.4 beta](https://github.com/Yuanyuan5510/websiteblocker/tree/4.4)** | Latest Beta | New framework, API integration, bilingual UI, auto‑cleanup modes (~1.2GB) |
 | **[v3.9](https://github.com/Yuanyuan5510/websiteblocker/tree/3.9)** | Stable | PyQt6 refactor, site templates, config import/export, auto DNS cache flush |
 | **[v3.9.9](https://github.com/Yuanyuan5510/websiteblocker/tree/3.9)** | Beta | Fixed admin privilege dual‑window issue, QSharedMemory unique instance check |
@@ -35,7 +39,7 @@ WebsiteBlocker is a desktop utility for managing website access, ideal for perso
 | **[v2.9](https://github.com/Yuanyuan5510/websiteblocker/tree/2.0+)** | Legacy | Full‑featured release with improved compatibility |
 | **[v1.9](https://github.com/Yuanyuan5510/websiteblocker/tree/1.0+)** | Legacy | Early version with core blocking functionality |
 
-> 💡 **Recommendation**: For latest features, use **v4.4 beta**; for stability, **v3.9**; for lightweight usage, **v3.7**.
+> 💡 **Recommendation**: For latest features, use **v4.5**; for stability, **v3.9**; for lightweight usage, **v3.8**.
 
 ---
 
@@ -46,6 +50,7 @@ For branch‑based versions, you can also download source code archives directly
 
 | Version | Type | Download Link |
 |---------|------|---------------|
+| **v4.5** | Installer + Source | [Download from Releases](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/v4.5) |
 | **v4.4 beta** | Installer + Source | [Download from Releases](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/v4.4-beta) |
 | **v3.9** | Installer + Source | [Download from Releases](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/v3.9) |
 | **v3.9.9** | Installer + Source | [Download from Releases](https://github.com/Yuanyuan5510/websiteblocker/releases/tag/v3.9.9) |
@@ -62,14 +67,14 @@ For branch‑based versions, you can also download source code archives directly
 
 ### Requirements
 
-- Windows 7 or later
-- Python 3.7+ (for source run)
-- RAM: 2 GB or more
+- Windows 10 or later
+- Python 3.10+ (for source run)
+- RAM: 4 GB or more
 
 ### Run from Source
 
 ```bash
-git clone -b 3.7 https://github.com/Yuanyuan5510/websiteblocker.git
+git clone -b 3.9 https://github.com/Yuanyuan5510/websiteblocker.git
 cd websiteblocker
 pip install -r requirements.txt
 python website_blocker_ui.py
@@ -117,11 +122,11 @@ Issues and Pull Requests are welcome!
 
 ## 📄 License
 
-This project is licensed under the [Creative Commons Attribution‑NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/).
+This project is licensed under the [GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
 **You are free to:**
-- ✅ Share and adapt the material
-- ✅ Give appropriate credit (BY)
+- ✅ **Adapt** the material for personal use
+- ✅ **Credit** the original author
 - ❌ **Not** use it for commercial purposes
 
 For the full license text, see [LICENSE.txt](./LICENSE.txt).
@@ -135,4 +140,4 @@ For the full license text, see [LICENSE.txt](./LICENSE.txt).
 
 ---
 
-> **Last Updated**: June 2026
+> **Last Updated**: July 2026
