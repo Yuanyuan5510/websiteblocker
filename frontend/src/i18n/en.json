@@ -2,7 +2,7 @@
   "app": {
     "title": "Website Access Restriction Tool",
     "version": "Version",
-    "copyright": "© 2026 Website Access Restriction Tool v4.4.0"
+    "copyright": "© 2026 Website Access Restriction Tool v4.5"
   },
   "nav": {
     "domains": "Domain Management",

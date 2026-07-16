@@ -1,7 +1,7 @@
 {
-  "name": "frontend",
+  "name": "WebsiteBlockerFrontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.1.0",
   "type": "commonjs",
   "main": "server.js",
   "bin": "server.js",
@@ -9,7 +9,10 @@
     "dev": "vite --port 16410",
     "build": "tsc && vite build",
     "preview": "vite preview --port 16410",
-    "pkg-build": "pkg . -t node18-win-x64 --debug"
+    "pkg-build": "pkg . -t node18-win-x64 --debug",
+    "pkg-build-x86": "pkg . -t node18-win-x86 --output ./dist-exe/WebsiteBlockerFrontend-x86.exe",
+    "pkg-build-x64": "pkg . -t node18-win-x64 --output ./dist-exe/WebsiteBlockerFrontend-x64.exe",
+    "nexe-build-x86": "nexe -i server.js -o ./dist-exe/WebsiteBlockerFrontend-x86.exe -t windows-x86-14.15.0"
   },
   "pkg": {
     "targets": [
@@ -21,11 +24,11 @@
       "node_modules/http-proxy/**/*"
     ],
     "name": "wang.station.websiteblocker",
-    "description": "网站访问限制浏览器",
+    "description": "Website Blocker Frontend Service",
     "productName": "Website Blocker",
-    "companyName": "wang.station",
-    "copyright": "Copyright © 2026 wang.station",
-    "version": "4.4",
+    "companyName": "yuanyuan5510/wang.station",
+    "copyright": "Copyright (c) 2025-2026 yuanyuan5510/wang.station",
+    "version": "4.5",
     "license": "MIT",
     "exclude": [
       "browser/**/*",
@@ -44,12 +47,13 @@
       "upx": true
     }
   },
-  "publisherName": "wang.station",
-  "author": "wang.station",
-  "copyright": "Copyright © 2026 wang.station",
+  "publisherName": "yuanyuan5510/wang.station",
+  "author": "yuanyuan5510/wang.station",
+  "copyright": "Copyright (c) 2025-2026 yuanyuan5510/wang.station",
   "supportEmail": "wang.station@hotmail.com",
-  "supportUrl": "websiteblocker-zh.wangstation.ddns-ip.net",
+  "supportUrl": "websiteblocker.wangstation.dpdns.org",
   "devDependencies": {
+    "nexe": "^5.0.0-beta.4",
     "typescript": "~5.9.3",
     "vite": "npm:rolldown-vite@7.2.5"
   },

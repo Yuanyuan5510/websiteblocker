@@ -28,7 +28,7 @@ class Settings(BaseSettings):
     
     # 应用基本配置
     app_name: str = "Website Blocker"
-    app_version: str = "4.4.0"
+    app_version: str = "1.1.0"
     debug: bool = False
     
     # 服务器配置
@@ -36,7 +36,7 @@ class Settings(BaseSettings):
     server_port: int = 16411
     
     # 前端配置
-    frontend_url: str = "http://localhost:16410"
+    frontend_url: str = "http://localhost:16411"
     
     # 数据库配置 - 使用统一路径
     database_url: str = Field(default_factory=lambda: f"sqlite:///{get_database_path()}")
@@ -45,7 +45,10 @@ class Settings(BaseSettings):
     cors_origins: List[str] = Field(default_factory=lambda: [
         "http://localhost:16410",
         "http://127.0.0.1:16410",
-        "https://websiteblocker.vercel.app"
+        "http://localhost:16411",
+        "http://127.0.0.1:16411",
+        "https://websiteblocker.vercel.app",
+        "https://websiteblocker.wangstation.dpdns.org",
     ])
     
     # Hosts文件配置

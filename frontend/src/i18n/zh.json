@@ -2,7 +2,7 @@
   "app": {
     "title": "网站访问限制工具",
     "version": "版本",
-    "copyright": "© 2026 网站访问限制工具 v4.4.0"
+    "copyright": "© 2026 网站访问限制工具 v4.5"
   },
   "nav": {
     "domains": "域名管理",

@@ -165,6 +165,88 @@ class SchedulerManager:
         finally:
             db.close()
     
+    def get_job(self, job_id: str) -> Optional[ScheduleModel]:
+        """
+        获取单个调度任务
+        
+        Args:
+            job_id: 任务ID
+            
+        Returns:
+            Optional[ScheduleModel]: 调度任务，不存在则返回None
+        """
+        db = SessionLocal()
+        try:
+            return db.query(ScheduleModel).filter(ScheduleModel.id == job_id).first()
+        finally:
+            db.close()
+    
+    def toggle_job(self, job_id: str) -> ScheduleModel:
+        """
+        切换调度任务的激活状态
+        
+        Args:
+            job_id: 任务ID
+            
+        Returns:
+            ScheduleModel: 更新后的调度任务
+            
+        Raises:
+            WebsiteBlockerException: 任务不存在或操作失败
+        """
+        db = SessionLocal()
+        try:
+            db_schedule = db.query(ScheduleModel).filter(ScheduleModel.id == job_id).first()
+            if not db_schedule:
+                raise WebsiteBlockerException(
+                    error_code=ErrorCode.RESOURCE_NOT_FOUND,
+                    message=f"调度任务不存在: {job_id}",
+                    status_code=404
+                )
+            
+            # 切换状态
+            new_active = not db_schedule.active
+            db_schedule.active = new_active
+            
+            if new_active:
+                # 激活任务：添加到调度器
+                trigger = CronTrigger.from_crontab(db_schedule.cron_expression)
+                job = self.scheduler.add_job(
+                    func=self._execute_task,
+                    trigger=trigger,
+                    id=job_id,
+                    name=db_schedule.name,
+                    args=[db_schedule.task_type, db_schedule.params],
+                    replace_existing=True,
+                    misfire_grace_time=60
+                )
+                db_schedule.next_run_time = job.next_run_time
+            else:
+                # 停用任务：从调度器移除
+                try:
+                    self.scheduler.remove_job(job_id)
+                except Exception:
+                    pass  # 任务可能不在调度器中
+                db_schedule.next_run_time = None
+            
+            db.commit()
+            db.refresh(db_schedule)
+            
+            logger.info(f"切换调度任务状态: {job_id} -> {'激活' if new_active else '停用'}")
+            return db_schedule
+        except WebsiteBlockerException:
+            raise
+        except Exception as e:
+            db.rollback()
+            logger.error(f"切换调度任务状态失败: {str(e)}")
+            raise WebsiteBlockerException(
+                error_code=ErrorCode.SCHEDULER_ERROR,
+                message=f"切换调度任务状态失败: {str(e)}",
+                status_code=500
+            )
+        finally:
+            db.close()
+    
     def add_job(self, schedule_data: ScheduleCreate) -> str:
         """
         添加调度任务

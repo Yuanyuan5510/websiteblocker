@@ -32,7 +32,7 @@ function createTray() {
     }
   ]);
   
-  tray.setToolTip('网站访问限制浏览器');
+  tray.setToolTip('Website Blocker Browser');
   tray.setContextMenu(contextMenu);
   
   // 点击托盘图标切换窗口显示/隐藏

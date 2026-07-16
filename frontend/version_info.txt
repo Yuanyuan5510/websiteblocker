@@ -1,8 +1,8 @@
 # version_info.txt
 VSVersionInfo(
     ffi=FixedFileInfo(
-        filevers=(1, 0, 0, 0),
-        prodvers=(1, 0, 0, 0),
+        filevers=(4, 5, 0, 0),
+        prodvers=(4, 5, 0, 0),
         mask=0x3f,
         flags=0x0,
         OS=0x40004,
@@ -16,17 +16,17 @@ VSVersionInfo(
                 StringTable(
                     '040904B0',
                     [
-                        StringStruct('CompanyName', 'wang.station'),
+                        StringStruct('CompanyName', 'yuanyuan5510/wang.station'),
                         StringStruct('FileDescription', 'Website Blocker Frontend'),
-                        StringStruct('FileVersion', '1.0.0'),
+                        StringStruct('FileVersion', '4.5.0'),
                         StringStruct('InternalName', 'websiteblocker'),
-                        StringStruct('LegalCopyright', 'Copyright © 2026 wang.station'),
+                        StringStruct('LegalCopyright', 'Copyright (c) 2025-2026 yuanyuan5510/wang.station'),
                         StringStruct('OriginalFilename', 'websiteblocker.exe'),
-                        StringStruct('ProductName', '网站访问限制浏览器'),
-                        StringStruct('ProductVersion', '1.0.0'),
-                        StringStruct('Publisher', 'wang.station'),
+                        StringStruct('ProductName', 'Website Blocker'),
+                        StringStruct('ProductVersion', '4.5.0'),
+                        StringStruct('Publisher', 'yuanyuan5510/wang.station'),
                         StringStruct('SupportEmail', 'wang.station@hotmail.com'),
-                        StringStruct('SupportUrl', 'websiteblocker-zh.wangstation.ddns-ip.net')
+                        StringStruct('SupportUrl', 'websiteblocker.wangstation.dpdns.org')
                     ]
                 )
             ]

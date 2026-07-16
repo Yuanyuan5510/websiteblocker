@@ -24,7 +24,7 @@ class WebSocketService {
   constructor(url: string = '') {
     // 如果没有提供URL，使用固定的后端WebSocket端点
     if (!url) {
-      this.url = 'ws://localhost:8000/ws';
+      this.url = 'ws://localhost:16411/ws';
     } else {
       this.url = url;
     }

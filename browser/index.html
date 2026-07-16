@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>网站访问限制浏览器</title>
+  <title>WebsiteBlocker Browser</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
     <!-- 自定义标题栏 -->
     <div class="title-bar">
       <div class="title-bar-drag">
-        <div class="app-title">网站访问限制GUI</div>
+        <div class="app-title">WebsiteBlocker Browser</div>
       </div>
       <div class="window-controls">
         <button id="minimize-btn" class="window-btn minimize-btn" title="最小化">
@@ -33,6 +33,28 @@
       </div>
     </div>
     
+    <!-- 错误提示覆盖层 -->
+    <div id="error-overlay" class="error-overlay" style="display: none;">
+      <div class="error-content">
+        <div class="error-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <h2 id="error-title" class="error-title">Connection Error</h2>
+        <p id="error-message" class="error-message">Unable to connect to the server.</p>
+        <button id="retry-btn" class="retry-btn">Retry</button>
+      </div>
+    </div>
+
+    <!-- 加载指示器 -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Loading...</p>
+    </div>
+
     <!-- 浏览器内容区域 -->
     <div class="browser-content">
       <webview 

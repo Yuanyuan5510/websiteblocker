@@ -12,9 +12,22 @@ LOG_LEVELS = {
     "critical": logging.CRITICAL
 }
 
+
+def get_appdata_path() -> str:
+    """获取统一配置路径"""
+    appdata = os.environ.get('APPDATA', os.path.expanduser('~'))
+    return os.path.join(appdata, 'WebsiteBlocker')
+
+
+def get_logs_dir() -> str:
+    """获取日志目录路径"""
+    logs_dir = os.path.join(get_appdata_path(), 'logs')
+    os.makedirs(logs_dir, exist_ok=True)
+    return logs_dir
+
+
 def setup_logger(
     name: str = "website_blocker",
-    log_dir: str = "./logs",
     log_level: str = "info",
     max_bytes: int = 10 * 1024 * 1024,  # 10MB
     backup_count: int = 5
@@ -24,7 +37,6 @@ def setup_logger(
     
     Args:
         name: 日志记录器名称
-        log_dir: 日志文件存储目录
         log_level: 日志级别
         max_bytes: 单个日志文件最大大小
         backup_count: 日志文件备份数量
@@ -32,8 +44,8 @@ def setup_logger(
     Returns:
         配置好的日志记录器
     """
-    # 创建日志目录
-    os.makedirs(log_dir, exist_ok=True)
+    # 获取统一日志目录
+    log_dir = get_logs_dir()
     
     # 创建日志记录器
     logger = logging.getLogger(name)
@@ -62,6 +74,7 @@ def setup_logger(
     logger.addHandler(file_handler)
     
     return logger
+
 
 # 创建默认日志记录器
 logger = setup_logger()

@@ -1,6 +1,7 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 import uvicorn
 import os
@@ -124,6 +125,11 @@ register_exception_handlers(app)
 # 注册API路由
 app.include_router(api_router, prefix="/api")
 
+# 挂载静态文件目录（前端构建后的 dist 目录）
+frontend_dist_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "frontend", "dist")
+if os.path.exists(frontend_dist_path):
+    app.mount("/assets", StaticFiles(directory=os.path.join(frontend_dist_path, "assets")), name="assets")
+
 # WebSocket路由
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
@@ -158,7 +164,11 @@ async def websocket_endpoint(websocket: WebSocket):
 
 @app.get("/")
 async def root():
-    """根路径"""
+    """根路径，服务前端 index.html"""
+    frontend_dist_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "frontend", "dist")
+    index_html_path = os.path.join(frontend_dist_path, "index.html")
+    if os.path.exists(index_html_path):
+        return FileResponse(index_html_path)
     return {
         "app_name": settings.app_name,
         "version": settings.app_version,
@@ -182,6 +192,11 @@ async def get_version():
 
 def main():
     """主函数，用于直接运行应用"""
+    # 检查命令行参数，必须包含 -start 才能运行
+    if "-start" not in sys.argv:
+        print("Error: Application must be started with -start parameter")
+        sys.exit(1)
+
     import logging
     
     # 配置日志，禁用终端相关功能，确保不使用uvicorn自带的格式化器

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Program</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-theme">
+    <!-- Startup Animation Screen -->
+    <div id="startup-screen" class="screen active">
+        <div class="startup-content">
+            <div class="animated-text" data-i18n="admin_program">Admin Program</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="status-text" data-i18n="initializing">Initializing...</div>
+        </div>
+    </div>
+
+    <!-- Language Selection Screen -->
+    <div id="language-screen" class="screen">
+        <div class="selection-content">
+            <h1 data-i18n="select_language">Select Language</h1>
+            <div class="selection-buttons">
+                <button class="language-btn" data-lang="en">
+                    <span class="flag">🇬🇧</span>
+                    <span data-i18n="english">English</span>
+                </button>
+                <button class="language-btn" data-lang="zh">
+                    <span class="flag">🇨🇳</span>
+                    <span data-i18n="chinese">中文</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Selection Screen -->
+    <div id="theme-screen" class="screen">
+        <div class="selection-content">
+            <h1 data-i18n="select_theme">Select Theme</h1>
+            <div class="selection-buttons">
+                <button class="theme-btn" data-theme="light">
+                    <span class="theme-icon">☀️</span>
+                    <span data-i18n="light">Light</span>
+                </button>
+                <button class="theme-btn" data-theme="dark">
+                    <span class="theme-icon">🌙</span>
+                    <span data-i18n="dark">Dark</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start/Close Selection Screen -->
+    <div id="start-close-screen" class="screen">
+        <div class="selection-content">
+            <h1 data-i18n="welcome">Welcome</h1>
+            <div class="selection-buttons start-close-buttons">
+                <button id="start-btn" class="action-btn start-btn">
+                    <span data-i18n="start">Start</span>
+                </button>
+                <button id="close-btn" class="action-btn close-btn">
+                    <span data-i18n="close">Close</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Starting Screen -->
+    <div id="app-starting-screen" class="screen">
+        <div class="startup-content">
+            <div class="animated-text" data-i18n="starting_applications">Starting Applications...</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="status-text" data-i18n="please_wait">Please wait...</div>
+        </div>
+    </div>
+
+    <!-- Post Startup Screen -->
+    <div id="post-startup-screen" class="screen">
+        <div class="selection-content">
+            <h1 data-i18n="applications_running">Applications Running</h1>
+            <p data-i18n="applications_running_desc">The website blocker applications are now running.</p>
+            <p class="tray-notice" data-i18n="tray_notice">If you don't see other GUI windows, please check the system tray.</p>
+            <div class="selection-buttons">
+                <button id="view-license-btn" class="action-btn license-btn">
+                    <span data-i18n="view_license">View License</span>
+                </button>
+                <button id="feedback-btn" class="action-btn feedback-btn">
+                    <span data-i18n="feedback">Feedback</span>
+                </button>
+                <button id="post-close-btn" class="action-btn close-btn">
+                    <span data-i18n="close">Close</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Display Screen -->
+    <div id="certificate-screen" class="screen">
+        <div class="certificate-content">
+            <h1 data-i18n="license_agreement">License Agreement</h1>
+            <div class="certificate-header">
+                <button id="back-to-main" class="action-btn back-btn">
+                    <span data-i18n="back">Back</span>
+                </button>
+            </div>
+            <div id="certificate-text" class="certificate-text"></div>
+        </div>
+    </div>
+
+    <!-- Closing Animation Screen -->
+    <div id="closing-screen" class="screen">
+        <div class="startup-content">
+            <div class="animated-text" data-i18n="closing">Closing...</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="status-text" data-i18n="please_wait">Please wait...</div>
+        </div>
+    </div>
+
+    <!-- Terminal Container -->
+    <div id="terminal-container" class="terminal-container">
+        <div class="terminal-header">
+            <span class="terminal-title">Terminal</span>
+            <button id="close-terminal" class="terminal-btn close-btn">×</button>
+            <button id="minimize-terminal" class="terminal-btn minimize-btn">−</button>
+            <button id="maximize-terminal" class="terminal-btn maximize-btn">□</button>
+        </div>
+        <div id="terminal" class="terminal"></div>
+    </div>
+
+    <script src="node_modules/xterm/lib/xterm.js"></script>
+    <link rel="stylesheet" href="node_modules/xterm/css/xterm.css" />
+    <script src="node_modules/xterm-addon-fit/lib/xterm-addon-fit.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

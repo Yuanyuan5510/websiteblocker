@@ -107,7 +107,7 @@ const ErrorPage: React.FC<ErrorPageProps> = ({
       
       {/* 页脚 */}
       <footer className="error-footer">
-        <p>© 2026 Website Access Restriction Tool v4.4.0</p>
+        <p>© 2026 Website Access Restriction Tool v4.5</p>
       </footer>
     </div>
   );

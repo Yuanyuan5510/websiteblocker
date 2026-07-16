@@ -2,18 +2,27 @@
 __pycache__/
 *.pyc
 *.pyo
+WebsiteBlockerBackend.egg-info/
 
 # 虚拟环境
+4.4 all/backend/
+4.4 all/browser/
+4.4 all/logs/
+4.4 all/frontend/
 venv/
 env/
-4.4 all/
 dist/
 Output/
 certificates/
 dist-new-2/
+dist-new/
 node_modules/
 build/
 dist-exe/
+.pkg-cache/
+dist-electron/
+node-v18.18.0-win-x86/
+temp/
 
 # IDE 配置
 .vscode/
@@ -23,3 +32,8 @@ dist-exe/
 *.log
 tmp/
 *.7z
+tmp.txt
+*.zip
+*.yml
+*.yaml
+*.iss

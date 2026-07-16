@@ -63,7 +63,15 @@ function deleteDirectory(dirPath) {
 clearCache();
 
 // 静态文件目录
-const staticDir = path.join(__dirname, 'dist');
+// pkg 打包后需要使用正确的路径
+let staticDir;
+if (process.pkg) {
+  // pkg 打包后的路径
+  staticDir = path.join(path.dirname(process.execPath), 'dist');
+} else {
+  // 开发环境路径
+  staticDir = path.join(__dirname, 'dist');
+}
 const port = 16410;
 
 // MIME类型映射

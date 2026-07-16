@@ -1,14 +1,26 @@
+# FastAPI 核心
 fastapi>=0.104.0
 uvicorn[standard]>=0.24.0
-sqlalchemy>=2.0.23
-alembic>=1.13.0
-apscheduler>=3.10.4
-dnslib>=0.9.23
-python-dotenv>=1.0.0
 pydantic>=2.5.0
 pydantic-settings>=2.1.0
-win32security>=0.0.1;sys_platform=='win32'
-systemd-python>=235;sys_platform=='linux'
+python-multipart>=0.0.6
+
+# 数据库
+sqlalchemy>=2.0.23
+
+# 调度
+apscheduler>=3.10.4
+
+# 网络工具
+dnslib>=0.9.23
 psutil>=5.9.6
+
+# 配置
+python-dotenv>=1.0.0
+
+# Windows 特定依赖
 pywin32>=306;sys_platform=='win32'
 plyer>=2.1.0
+
+# 打包工具
+cx_Freeze>=7.0.0

@@ -2,9 +2,25 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import os
+from pathlib import Path
 
-# 直接指定数据库路径
-db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'website_blocker.db')
+# 导入统一路径获取函数
+def get_appdata_path() -> str:
+    """获取统一配置路径"""
+    appdata = os.environ.get('APPDATA', os.path.expanduser('~'))
+    return os.path.join(appdata, 'WebsiteBlocker')
+
+
+def get_database_path() -> str:
+    """获取数据库路径"""
+    config_dir = get_appdata_path()
+    # 确保目录存在
+    Path(config_dir).mkdir(parents=True, exist_ok=True)
+    return os.path.join(config_dir, 'website_blocker.db')
+
+
+# 获取数据库路径
+db_path = get_database_path()
 database_url = f"sqlite:///{db_path}"
 
 # 创建数据库引擎

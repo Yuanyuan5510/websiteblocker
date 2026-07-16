@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 
 from app.core.scheduler_manager import scheduler_manager
 from app.schemas.schedule import ScheduleCreate, ScheduleUpdate, ScheduleResponse
@@ -13,11 +13,24 @@ async def get_all_schedules(db: Session = Depends(get_db)):
     """获取所有调度任务"""
     return scheduler_manager.get_all_jobs()
 
+@router.get("/{schedule_id}", response_model=ScheduleResponse)
+async def get_schedule(schedule_id: str, db: Session = Depends(get_db)):
+    """获取单个调度任务"""
+    schedule = scheduler_manager.get_job(schedule_id)
+    if not schedule:
+        raise HTTPException(status_code=404, detail=f"调度任务不存在: {schedule_id}")
+    return schedule
+
 @router.post("")
 async def add_schedule(schedule_data: ScheduleCreate, db: Session = Depends(get_db)):
     """添加调度任务"""
     job_id = scheduler_manager.add_job(schedule_data)
     return {"success": True, "message": "Schedule added successfully", "id": job_id}
+
+@router.post("/{schedule_id}/toggle", response_model=ScheduleResponse)
+async def toggle_schedule(schedule_id: str, db: Session = Depends(get_db)):
+    """切换调度任务的激活状态"""
+    return scheduler_manager.toggle_job(schedule_id)
 
 @router.put("/{schedule_id}")
 async def update_schedule(schedule_id: str, schedule_data: ScheduleUpdate, db: Session = Depends(get_db)):

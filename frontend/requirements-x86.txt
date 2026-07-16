@@ -1,0 +1,14 @@
+# Website Blocker Frontend Service - Dependencies
+# Python 32-bit version requirements
+# 适用于 Nuitka 打包
+
+# HTTP 请求库（用于反向代理）
+requests>=2.31.0
+
+# Nuitka 打包工具（仅开发时需要）
+nuitka>=1.8.0  # Uncomment if you want to install via requirements.txt
+
+# 注意：
+# 1. requests 是唯一的外部依赖，其他均为 Python 标准库
+# 2. 使用 32-bit Python 环境安装
+# 3. Nuitka 通常通过 pip 单独安装: pip install nuitka

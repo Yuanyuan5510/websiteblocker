@@ -1,12 +1,14 @@
 {
-  "name": "websiteblocker",
-  "version": "4.4.0",
-  "description": "网站访问限制浏览器",
+  "name": "WebsiteBlockerBrowser",
+  "version": "1.1.0",
+  "description": "Website Blocker Browser",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder",
+    "build:x86": "electron-builder --ia32",
+    "build:x64": "electron-builder --x64"
   },
   "keywords": [],
   "author": "wang.station",
@@ -17,7 +19,7 @@
   },
   "build": {
     "appId": "wang.station.websiteblocker",
-    "productName": "网站访问限制浏览器",
+    "productName": "WebsiteBlocker Browser",
     "copyright": "Copyright © 2026 wang.station",
     "directories": {
       "output": "../dist-new"
