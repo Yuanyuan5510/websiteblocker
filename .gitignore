@@ -16,6 +16,7 @@ Output/
 
 # 日志和临时文件
 *.log
+*.zip
 tmp/
 *.iss
 *.pfx
