@@ -2,8 +2,8 @@
 
 > A Python + Node.js based website access restriction tool that blocks specified websites by modifying the system hosts file.(4.5 version)
 
-[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-18.0-green.svg)](https://nodejs.org/)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-20.0-green.svg)](https://nodejs.org/)
 [![Windows](https://img.shields.io/badge/Windows-11-green.svg)](https://www.microsoft.com/windows/)
 [![Vite](https://img.shields.io/badge/Vite-4.4.9-green.svg)](https://vitejs.dev/)
 [![Electron](https://img.shields.io/badge/Electron-18.0.0-green.svg)](https://www.electronjs.org/)
