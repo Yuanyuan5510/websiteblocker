@@ -134,7 +134,7 @@ For the full license text, see [LICENSE.txt](./LICENSE.txt).
 
 ## 📞 Contact
 
-- Telegram Group: [https://t.me/+88bhuIPWBcQ5OTk1](https://t.me/+88bhuIPWBcQ5OTk1)
+- Telegram Group: [https://t.me/Websiteblocker](https://t.me/Websiteblocker)
 - Issue Tracker: [GitHub Issues](https://github.com/Yuanyuan5510/websiteblocker/issues)
 
 ---
