@@ -2,8 +2,8 @@
 
 > 一款基于 Python + Node.js 的网站访问限制工具，通过修改系统 hosts 文件实现对特定网站的访问控制。
 
-[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-18.0-green.svg)](https://nodejs.org/)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-20.0-green.svg)](https://nodejs.org/)
 [![Windows](https://img.shields.io/badge/Windows-11-green.svg)](https://www.microsoft.com/windows/)
 [![Vite](https://img.shields.io/badge/Vite-4.4.9-green.svg)](https://vitejs.dev/)
 [![Electron](https://img.shields.io/badge/Electron-18.0.0-green.svg)](https://www.electronjs.org/)
