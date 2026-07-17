@@ -19,7 +19,6 @@
 - **数据库**：SQLite3 + SQLAlchemy
 - **调度**：APScheduler
 - **通知**：plyer
-- **DNS**：dnslib
 
 ## 项目结构
 
